@@ -31,8 +31,9 @@ import javafx.util.Duration;
 import poiupv.Poi;
 
 /**
- *
+ * @author Ivaniko
  * @author suprimo keloke
+ * @author 
  */
 public class FXMLDocumentController implements Initializable {
 
