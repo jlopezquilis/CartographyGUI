@@ -32,7 +32,7 @@ import poiupv.Poi;
 
 /**
  *
- * @author jsoler
+ * @author suprimo keloke
  */
 public class FXMLDocumentController implements Initializable {
 
