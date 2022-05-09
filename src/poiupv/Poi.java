@@ -14,6 +14,7 @@ import javafx.geometry.Point2D;
 /**
  *
  * @author ivan, pablo, juan
+ * odio netbeans
  */
 public class Poi {
     
