@@ -44,7 +44,6 @@ public class FXMLLogInController implements Initializable {
     
     @FXML
     private void handleOnActionSignUp(ActionEvent event) throws IOException {
-        toSignUp.setText("funciono");
         FXMLLoader myLoader = new FXMLLoader(getClass().getResource("FXMLSignUp.fxml"));
         Parent root = myLoader.load();
         FXMLSignUpController SUController = myLoader.<FXMLSignUpController>getController();

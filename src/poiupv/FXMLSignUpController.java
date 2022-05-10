@@ -45,6 +45,7 @@ import poiupv.Poi;
 //Estos d abajo tb hacen falta para que funcione en este caso
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image; //Otro import que he añadido con el alt + enter, hay que comprobar que esté bien
@@ -82,6 +83,8 @@ public class FXMLSignUpController implements Initializable {
     private ImageView avatarImage;
     @FXML
     private Button selectImage;
+    @FXML
+    private Hyperlink BackButton;
 
     /**
      * Initializes the controller class.
@@ -96,6 +99,12 @@ public class FXMLSignUpController implements Initializable {
         primaryStage = stage;
         primaryScene = primaryStage.getScene();
         primaryTitle = primaryStage.getTitle();
+    }
+    //For coming back to Main window (login)
+    @FXML
+    private void handleBackButton(ActionEvent event) {
+            primaryStage.setScene(primaryScene);
+            primaryStage.setTitle(primaryTitle); 
     }
 
     @FXML
