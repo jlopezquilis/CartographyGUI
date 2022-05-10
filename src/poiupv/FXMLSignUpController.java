@@ -29,6 +29,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -57,7 +58,12 @@ import model.Navegacion; //Esto lo he añadido con lo d alt + enter, no se si
  * @author ivanh
  */
 public class FXMLSignUpController implements Initializable {
-
+    
+    //For managing with Stages
+    private Stage primaryStage;
+    private Scene primaryScene;
+    private String primaryTitle;
+    
     @FXML
     private Button acceptButton;
     @FXML
@@ -83,7 +89,14 @@ public class FXMLSignUpController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }   
+    
+    //For managin with stages
+    public void initSU(Stage stage) {
+        primaryStage = stage;
+        primaryScene = primaryStage.getScene();
+        primaryTitle = primaryStage.getTitle();
+    }
 
     @FXML
     private void handleAcceptButton(ActionEvent event) throws Exception { //Sin el throws no funciona el singleton
@@ -126,5 +139,6 @@ public class FXMLSignUpController implements Initializable {
     @FXML
     private void handleSelectImage(ActionEvent event) {
     }
+
     
 }

@@ -89,7 +89,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="New in POIUPV?" />
-                  <Hyperlink text="Create an account" />
+                  <Hyperlink fx:id="toSignUp" onAction="#handleOnActionSignUp" text="Create an account" />
                </children>
                <VBox.margin>
                   <Insets />
