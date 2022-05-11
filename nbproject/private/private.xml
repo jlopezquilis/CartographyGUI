@@ -4,9 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="IPC"/>
         <group>
-            <file>file:/C:/Users/jlopc/OneDrive%20-%20UPV/UPV/2º%20GII%20(2021-2022)/Cuatrimestre%20B/IPC%20(Interfaces%20Persona%20Computador)/Laboratory/Practice%20Deliverable/POI_UPV/POI_UPV/src/poiupv/FXMLLogInController.java</file>
-            <file>file:/C:/Users/jlopc/OneDrive%20-%20UPV/UPV/2º%20GII%20(2021-2022)/Cuatrimestre%20B/IPC%20(Interfaces%20Persona%20Computador)/Laboratory/Practice%20Deliverable/POI_UPV/POI_UPV/src/poiupv/Main.java</file>
-            <file>file:/C:/Users/jlopc/OneDrive%20-%20UPV/UPV/2º%20GII%20(2021-2022)/Cuatrimestre%20B/IPC%20(Interfaces%20Persona%20Computador)/Laboratory/Practice%20Deliverable/POI_UPV/POI_UPV/src/poiupv/FXMLLogIn.fxml</file>
+            <file>file:/C:/Users/ivanh/Documents/Universidad/GII/4º%20SEMESTRE/IPC/proyecto%20IPC/POI_UPV/src/poiupv/FXMLLogInController.java</file>
+            <file>file:/C:/Users/ivanh/Documents/Universidad/GII/4º%20SEMESTRE/IPC/proyecto%20IPC/POI_UPV/src/poiupv/FXMLSignUpController.java</file>
+            <file>file:/C:/Users/ivanh/Documents/Universidad/GII/4º%20SEMESTRE/IPC/proyecto%20IPC/POI_UPV/src/poiupv/Main.java</file>
+            <file>file:/C:/Users/ivanh/Documents/Universidad/GII/4º%20SEMESTRE/IPC/proyecto%20IPC/POI_UPV/src/poiupv/FXMLDocumentController.java</file>
         </group>
     </open-files>
 </project-private>

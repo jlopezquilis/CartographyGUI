@@ -15,13 +15,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLSignUpController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="600.0" style="-fx-background-color: #131D20;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLSignUpController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="44.0" prefWidth="600.0" style="-fx-background-color: #E8AC2C;">
+            <HBox prefHeight="44.0" prefWidth="600.0" style="-fx-background-color: #131D20;">
                <children>
-                  <Hyperlink fx:id="BackButton" onAction="#handleBackButton" prefHeight="5.0" prefWidth="46.0" text="Back">
+                  <Hyperlink fx:id="BackButton" onAction="#handleBackButton" prefHeight="5.0" prefWidth="46.0" text="Back" textFill="WHITE">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
@@ -31,11 +31,11 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" style="-fx-background-color: #E8AC2C;">
+            <HBox alignment="CENTER" style="-fx-background-color: #268EB5;">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up" textAlignment="CENTER" wrappingWidth="513.4508663415909">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up" textAlignment="CENTER" wrappingWidth="513.4508663415909">
                      <font>
-                        <Font name="Times New Roman Bold" size="48.0" />
+                        <Font name="Georgia" size="48.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
@@ -50,12 +50,12 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label text="Username:">
+                        <Label text="Username:" textFill="WHITE">
                            <VBox.margin>
                               <Insets left="15.0" top="10.0" />
                            </VBox.margin>
                            <font>
-                              <Font name="Times New Roman Bold Italic" size="17.0" />
+                              <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
                         <TextField fx:id="usernameTextfield" onInputMethodTextChanged="#handleChangeUsername">
@@ -67,15 +67,15 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label text="Birthdate: ">
+                        <Label text="Birthdate: " textFill="WHITE">
                            <VBox.margin>
                               <Insets left="15.0" top="10.0" />
                            </VBox.margin>
                            <font>
-                              <Font name="Times New Roman Bold Italic" size="17.0" />
+                              <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="birthdayDatepicker" onInputMethodTextChanged="#handleChangeBirthdate" promptText="yyyy-mm-dd">
+                        <DatePicker fx:id="birthdayDatepicker" onInputMethodTextChanged="#handleChangeBirthdate" promptText="dd/mm/yyyy">
                            <VBox.margin>
                               <Insets left="15.0" top="3.0" />
                            </VBox.margin>
@@ -91,9 +91,9 @@
                <children>
                   <VBox prefHeight="66.0" prefWidth="375.0">
                      <children>
-                        <Label text="Email: ">
+                        <Label text="Email: " textFill="WHITE">
                            <font>
-                              <Font name="Times New Roman Bold Italic" size="17.0" />
+                              <Font name="Georgia" size="17.0" />
                            </font>
                            <VBox.margin>
                               <Insets left="15.0" top="10.0" />
@@ -115,9 +115,9 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label text="Password:">
+                        <Label text="Password:" textFill="WHITE">
                            <font>
-                              <Font name="Times New Roman Bold Italic" size="17.0" />
+                              <Font name="Georgia" size="17.0" />
                            </font>
                            <VBox.margin>
                               <Insets left="15.0" top="10.0" />
@@ -139,12 +139,12 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label text="Repeat Password: ">
+                        <Label text="Repeat Password: " textFill="WHITE">
                            <VBox.margin>
                               <Insets left="15.0" top="10.0" />
                            </VBox.margin>
                            <font>
-                              <Font name="Times New Roman Bold Italic" size="17.0" />
+                              <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
                         <PasswordField fx:id="repeatPasswordTextfield" onInputMethodTextChanged="#handleChangeRepeatPassword" promptText="LettersNumbersSymbols">

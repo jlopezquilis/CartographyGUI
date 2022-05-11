@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -11,13 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLLogInController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: #131D20;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLLogInController">
    <top>
-      <HBox alignment="CENTER" prefHeight="74.4" prefWidth="200.0" style="-fx-background-color: #E8AC2C;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="74.4" prefWidth="200.0" style="-fx-background-color: #268EB5;" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Log In" textAlignment="CENTER" wrappingWidth="190.19061279296875">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Log In" textAlignment="CENTER" wrappingWidth="190.19061279296875">
                <font>
-                  <Font name="Times New Roman Bold" size="48.0" />
+                  <Font name="Georgia" size="48.0" />
                </font>
             </Text>
          </children>
@@ -33,18 +34,21 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="300.0">
                      <children>
-                        <Label text="Username: ">
+                        <Label text="Username: " textFill="WHITE">
                            <VBox.margin>
                               <Insets left="15.0" top="10.0" />
                            </VBox.margin>
                            <font>
-                              <Font name="Times New Roman Bold Italic" size="17.0" />
+                              <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
                         <TextField>
                            <VBox.margin>
                               <Insets left="15.0" top="3.0" />
                            </VBox.margin>
+                           <font>
+                              <Font name="Georgia" size="12.0" />
+                           </font>
                         </TextField>
                      </children>
                   </VBox>
@@ -54,19 +58,19 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="300.0">
                      <children>
-                        <Label text="Password:">
+                        <Label text="Password:" textFill="WHITE">
                            <VBox.margin>
                               <Insets left="15.0" top="10.0" />
                            </VBox.margin>
                            <font>
-                              <Font name="Times New Roman Bold Italic" size="17.0" />
+                              <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <TextField>
+                        <PasswordField>
                            <VBox.margin>
                               <Insets left="15.0" top="3.0" />
                            </VBox.margin>
-                        </TextField>
+                        </PasswordField>
                      </children>
                   </VBox>
                </children>
@@ -88,8 +92,14 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="New in POIUPV?" />
-                  <Hyperlink fx:id="toSignUp" onAction="#handleOnActionSignUp" text="Create an account" />
+                  <Label text="New in POIUPV?" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="12.0" />
+                     </font></Label>
+                  <Hyperlink fx:id="toSignUp" onAction="#handleOnActionSignUp" text="Create an account" textFill="#00ddff">
+                     <font>
+                        <Font name="Georgia" size="12.0" />
+                     </font></Hyperlink>
                </children>
                <VBox.margin>
                   <Insets />
