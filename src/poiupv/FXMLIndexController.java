@@ -7,7 +7,10 @@ package poiupv;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -16,6 +19,17 @@ import javafx.fxml.Initializable;
  */
 public class FXMLIndexController implements Initializable {
 
+    @FXML
+    private Button chooseProblem;
+    @FXML
+    private Button randomProblem;
+    @FXML
+    private Button showResults;
+    @FXML
+    private Button modifyProfile;
+    @FXML
+    private Button logOut;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +37,25 @@ public class FXMLIndexController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void handleChooseProblem(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleRandomProblem(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleShowResults(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleModifyProfile(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleLogOut(ActionEvent event) {
+    }
     
 }

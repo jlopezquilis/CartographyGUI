@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLIndexController">
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #131D20;" BorderPane.alignment="CENTER">
@@ -67,27 +66,27 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" text="Choose a Problem" />
+                        <Button fx:id="chooseProblem" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#handleChooseProblem" text="Choose a Problem" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Button focusTraversable="false" mnemonicParsing="false" prefWidth="113.6" text="Random Problem" />
+                        <Button fx:id="randomProblem" focusTraversable="false" mnemonicParsing="false" onAction="#handleRandomProblem" prefWidth="113.6" text="Random Problem" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Button focusTraversable="false" mnemonicParsing="false" prefWidth="113.6" text="Show my results" />
+                        <Button fx:id="showResults" focusTraversable="false" mnemonicParsing="false" onAction="#handleShowResults" prefWidth="113.6" text="Show my results" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Button focusTraversable="false" mnemonicParsing="false" prefWidth="113.6" text="Modify Profile" />
+                        <Button fx:id="modifyProfile" focusTraversable="false" mnemonicParsing="false" onAction="#handleModifyProfile" prefWidth="113.6" text="Modify Profile" />
                      </children>
                   </HBox>
                </children>
             </GridPane>
-            <Button focusTraversable="false" mnemonicParsing="false" text="Log Out">
+            <Button fx:id="logOut" focusTraversable="false" mnemonicParsing="false" onAction="#handleLogOut" text="Log Out">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
