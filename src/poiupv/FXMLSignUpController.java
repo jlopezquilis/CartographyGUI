@@ -123,10 +123,13 @@ public class FXMLSignUpController implements Initializable {
 
     @FXML
     private void handleCancelButton(ActionEvent event) {
+        primaryStage.setScene(primaryScene);
+        primaryStage.setTitle(primaryTitle);
     }
 
     @FXML
     private void handleChangeUsername(InputMethodEvent event) {
+        
     }
 
     @FXML
