@@ -62,9 +62,10 @@ import model.*;//Esto lo he añadido con lo d alt + enter, no se si
 public class FXMLSignUpController implements Initializable {
     
     //For managing with Stages
-    private Stage primaryStage;
-    private Scene primaryScene;
-    private String primaryTitle;
+    private Stage previousStage;
+    private Scene previousScene;
+    private String previousTitle;
+    private Navegacion nav;
     
     @FXML
     private Button acceptButton;
@@ -95,24 +96,74 @@ public class FXMLSignUpController implements Initializable {
     @FXML
     private Label repeatPasswordLabel;
 
-
+    
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //Declaramos objeto Navegacion para base de datos
+        try {
+            nav = Navegacion.getSingletonNavegacion();
+        } catch (Exception e) {
+
+        }
     }   
     
     //For managin with stages
     public void initSU(Stage stage) {
-        primaryStage = stage;
-        primaryScene = primaryStage.getScene();
-        primaryTitle = primaryStage.getTitle();
+        previousStage = stage;
+        previousScene = previousStage.getScene();
+        previousTitle = previousStage.getTitle();
     }
 
     @FXML
     private void handleAcceptButton(ActionEvent event) throws Exception { //Sin el throws no funciona el singleton
+        
+        //Checking user
+        if(!User.checkNickName(usernameTextfield.textProperty().getValue())) {
+            //si el usuario es incorrecto se muestra un mensaje que te dice el error.
+            usernameLabel.visibleProperty().setValue(true);
+        } else if (nav.exitsNickName(usernameTextfield.textProperty().getValue())) {
+            //si el usuario ya existe, se muestra un mensaje que te lo dice.
+            usernameLabel.textProperty().setValue("This user already exists");
+            usernameLabel.visibleProperty().setValue(true);
+        } else {
+            //deshabilitar la label para que no siga apareciendo si está bien
+            usernameLabel.visibleProperty().setValue(false);
+        }
+        
+        //Checking email
+        if(!User.checkEmail(emailTextfield.textProperty().getValueSafe())) {
+            //mostrar label diciendo que el formato no es correcto.
+            emailLabel.visibleProperty().setValue(true);
+        } else {
+            //deshabilitar la label para que no siga apareciendo si está bien
+            emailLabel.visibleProperty().setValue(false);
+        }
+        
+        //Checking password
+        if(!User.checkPassword(passwordTextfield.textProperty().getValue())) {
+            //mostrar label diciendo que el formato no es correcto.
+            passwordLabel.visibleProperty().setValue(true);
+        } else {
+            //deshabilitar la label para que no siga apareciendo si está bien
+            passwordLabel.visibleProperty().setValue(false);
+        }
+        
+        //Checking repeat password
+        
+        if(!passwordTextfield.textProperty().getValue().equals(repeatPasswordTextfield.textProperty().getValue())) {
+            //mostrar label diciendo que no son iguales ambas contraseñas
+            repeatPasswordLabel.visibleProperty().setValue(true);
+        } else {
+            //deshabilitar la label para que no siga apareciendo si está bien
+            repeatPasswordLabel.visibleProperty().setValue(false);
+        }
+        
+        //Checking birthdate
+        
         //Asumimos que todos los parametros son correctos pq lo habremos
         //comprobado en sus respectivos metodos:
         if(todoCorrecto()) {
@@ -122,7 +173,6 @@ public class FXMLSignUpController implements Initializable {
             Image avatar = avatarImage.getImage();
             LocalDate birthday = birthdayDatepicker.getValue(); //Ni idea d si la fecha se saca con esto jsjs
 
-            Navegacion nav = Navegacion.getSingletonNavegacion();
             nav.registerUser(username, email, password, avatar, birthday);
         } else {
             everythingCorrectLabel.visibleProperty().setValue(true);
@@ -132,13 +182,10 @@ public class FXMLSignUpController implements Initializable {
 
     @FXML
     private void handleCancelButton(ActionEvent event) {
-        primaryStage.setScene(primaryScene);
-        primaryStage.setTitle(primaryTitle);
+        previousStage.setScene(previousScene);
+        previousStage.setTitle(previousTitle);
     }
 
-    @FXML
-    private void handleChangeBirthdate(InputMethodEvent event) {
-    }
 
     @FXML
     private void handleSelectImage(ActionEvent event) {
@@ -147,7 +194,6 @@ public class FXMLSignUpController implements Initializable {
 
     private boolean todoCorrecto() throws Exception{
         //metodo en el que comprobar a la vez si todos los campos son correctos
-        Navegacion nav = Navegacion.getSingletonNavegacion(); 
         
         return passwordTextfield.textProperty().getValue().equals(repeatPasswordTextfield.textProperty().getValue()) &&
                User.checkPassword(passwordTextfield.textProperty().getValue()) &&
@@ -156,7 +202,6 @@ public class FXMLSignUpController implements Initializable {
                !nav.exitsNickName(usernameTextfield.textProperty().getValue());
     }
 
-    @FXML
     private void handleChangeEmail(KeyEvent event) {
         if(!User.checkEmail(emailTextfield.textProperty().getValueSafe())) {
             //mostrar label diciendo que el formato no es correcto.
@@ -167,9 +212,8 @@ public class FXMLSignUpController implements Initializable {
         }
     }
 
-    @FXML
     private void handleChangeUsername(KeyEvent event) throws Exception{
-        Navegacion nav = Navegacion.getSingletonNavegacion();
+        
         if(!User.checkNickName(usernameTextfield.textProperty().getValue())) {
             //si el usuario es incorrecto se muestra un mensaje que te dice el error.
             usernameLabel.visibleProperty().setValue(true);
@@ -183,7 +227,6 @@ public class FXMLSignUpController implements Initializable {
         }
     }
 
-    @FXML
     private void handleChangePassword(KeyEvent event) {
         if(!User.checkPassword(passwordTextfield.textProperty().getValue())) {
             //mostrar label diciendo que el formato no es correcto.
@@ -194,7 +237,6 @@ public class FXMLSignUpController implements Initializable {
         }
     }
 
-    @FXML
     private void handleChangeRepeatPassword(KeyEvent event) {
         if(!passwordTextfield.textProperty().getValue().equals(repeatPasswordTextfield.textProperty().getValue())) {
             //mostrar label diciendo que no son iguales ambas contraseñas

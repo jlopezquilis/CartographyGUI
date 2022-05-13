@@ -48,19 +48,19 @@
                               <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameTextfield" onKeyTyped="#handleChangeUsername" prefWidth="200.0">
+                        <TextField fx:id="usernameTextfield" prefWidth="200.0">
                            <VBox.margin>
                               <Insets left="15.0" top="3.0" />
                            </VBox.margin>
                         </TextField>
                      </children>
                   </VBox>
-                  <Label fx:id="usernameLabel" prefHeight="56.0" prefWidth="397.0" text="The format is not correct (between 6 and 15 characters without spaces)" textFill="#fa5252" visible="false">
+                  <Label fx:id="usernameLabel" prefHeight="56.0" prefWidth="389.0" text="The format is not correct (between 6 and 15 characters without spaces). You can also use hyphens or sub-dashes." textFill="#fa5252" visible="false" wrapText="true">
                      <HBox.margin>
-                        <Insets />
+                        <Insets right="5.0" />
                      </HBox.margin>
                      <padding>
-                        <Insets left="7.0" top="38.0" />
+                        <Insets left="7.0" right="5.0" top="38.0" />
                      </padding>
                      <font>
                         <Font name="Georgia Italic" size="12.0" />
@@ -80,7 +80,7 @@
                               <Insets left="15.0" top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="emailTextfield" minHeight="26.0" minWidth="150.0" onKeyTyped="#handleChangeEmail" prefHeight="26.0" prefWidth="350.0" promptText="yourEmail@domain.com">
+                        <TextField fx:id="emailTextfield" minHeight="26.0" minWidth="150.0" prefHeight="26.0" prefWidth="350.0" promptText="yourEmail@domain.com">
                            <VBox.margin>
                               <Insets left="15.0" top="3.0" />
                            </VBox.margin>
@@ -112,7 +112,7 @@
                               <Insets left="15.0" top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <PasswordField fx:id="passwordTextfield" onKeyTyped="#handleChangePassword" promptText="LettersNumbersSymbols">
+                        <PasswordField fx:id="passwordTextfield" promptText="LettersNumbersSymbols">
                            <VBox.margin>
                               <Insets left="15.0" top="3.0" />
                            </VBox.margin>
@@ -147,7 +147,7 @@
                               <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="repeatPasswordTextfield" onKeyTyped="#handleChangeRepeatPassword" promptText="LettersNumbersSymbols">
+                        <PasswordField fx:id="repeatPasswordTextfield" promptText="LettersNumbersSymbols">
                            <VBox.margin>
                               <Insets left="15.0" top="3.0" />
                            </VBox.margin>
@@ -176,7 +176,7 @@
                               <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="birthdayDatepicker" focusTraversable="false" onInputMethodTextChanged="#handleChangeBirthdate" promptText="dd/mm/yyyy">
+                        <DatePicker fx:id="birthdayDatepicker" focusTraversable="false" promptText="dd/mm/yyyy">
                            <VBox.margin>
                               <Insets left="15.0" top="3.0" />
                            </VBox.margin>
