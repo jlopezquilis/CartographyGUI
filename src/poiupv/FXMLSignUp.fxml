@@ -186,6 +186,14 @@
                         <Insets />
                      </HBox.margin>
                   </VBox>
+                  <Label fx:id="birthdayLabel" text="You must be at least 12 years old." textFill="#fa5252" visible="false">
+                     <padding>
+                        <Insets left="7.0" top="38.0" />
+                     </padding>
+                     <font>
+                        <Font name="Georgia Italic" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -198,14 +206,18 @@
                         <Insets left="15.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Button fx:id="selectImage" focusTraversable="false" mnemonicParsing="false" onAction="#handleSelectImage" text="Select Image">
+                  <VBox alignment="CENTER" prefHeight="79.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="selectImage" focusTraversable="false" mnemonicParsing="false" onAction="#onSelectImage" text="Select Image">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
                      <HBox.margin>
-                        <Insets left="10.0" top="70.0" />
+                        <Insets left="10.0" top="10.0" />
                      </HBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
+                  </VBox>
                </children>
             </HBox>
          </children>

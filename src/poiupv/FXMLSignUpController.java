@@ -16,6 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;*/
 
 //Imports copiados del fxml document controller:
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate; //Import que he añadido con alt + enter, comprobar que sea el bueno
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -52,6 +54,8 @@ import javafx.scene.image.Image; //Otro import que he añadido con el alt + ente
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.*;//Esto lo he añadido con lo d alt + enter, no se si
                          //es la clase que hay que importar para que funcione
 /**
@@ -66,6 +70,8 @@ public class FXMLSignUpController implements Initializable {
     private Scene previousScene;
     private String previousTitle;
     private Navegacion nav;
+    private LocalDate birthday;
+    private File selectedFile;
     
     @FXML
     private Button acceptButton;
@@ -95,6 +101,8 @@ public class FXMLSignUpController implements Initializable {
     private Label passwordLabel;
     @FXML
     private Label repeatPasswordLabel;
+    @FXML
+    private Label birthdayLabel;
 
     
     
@@ -163,6 +171,13 @@ public class FXMLSignUpController implements Initializable {
         }
         
         //Checking birthdate
+        birthday = birthdayDatepicker.getValue();
+        LocalDate today = LocalDate.now();
+        if (birthday.compareTo(today.minusYears(12)) > 0) {
+            birthdayLabel.visibleProperty().setValue(true);
+        } else {
+            birthdayLabel.visibleProperty().setValue(false);
+        }
         
         //Asumimos que todos los parametros son correctos pq lo habremos
         //comprobado en sus respectivos metodos:
@@ -171,13 +186,24 @@ public class FXMLSignUpController implements Initializable {
             String email = emailTextfield.textProperty().getValue();
             String password = passwordTextfield.textProperty().getValue();
             Image avatar = avatarImage.getImage();
-            LocalDate birthday = birthdayDatepicker.getValue(); //Ni idea d si la fecha se saca con esto jsjs
 
             nav.registerUser(username, email, password, avatar, birthday);
         } else {
             everythingCorrectLabel.visibleProperty().setValue(true);
             //mostrar mensaje de rellenar todos los campos correctamente.
         }
+    }
+    
+    @FXML
+    private void onSelectImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select image");
+        fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("Images", "*.png", "*.jpg", "*.gif")
+        );
+        selectedFile = fileChooser.showOpenDialog(
+                ((Node)event.getSource()).getScene().getWindow());
+        avatarImage.setImage(new Image(selectedFile.toURI().toString()));
     }
 
     @FXML
@@ -187,10 +213,6 @@ public class FXMLSignUpController implements Initializable {
     }
 
 
-    @FXML
-    private void handleSelectImage(ActionEvent event) {
-        
-    }
 
     private boolean todoCorrecto() throws Exception{
         //metodo en el que comprobar a la vez si todos los campos son correctos
