@@ -96,7 +96,7 @@
                      <font>
                         <Font name="Georgia" size="12.0" />
                      </font></Label>
-                  <Hyperlink fx:id="toSignUp" onAction="#handleOnActionSignUp" text="Create an account" textFill="#00ddff">
+                  <Hyperlink fx:id="toSignUp" focusTraversable="false" onAction="#handleOnActionSignUp" text="Create an account" textFill="#00ddff">
                      <font>
                         <Font name="Georgia" size="12.0" />
                      </font></Hyperlink>

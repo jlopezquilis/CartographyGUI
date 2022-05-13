@@ -51,7 +51,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image; //Otro import que he añadido con el alt + enter, hay que comprobar que esté bien
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
-import model.Navegacion; //Esto lo he añadido con lo d alt + enter, no se si
+import javafx.scene.input.KeyEvent;
+import model.*;//Esto lo he añadido con lo d alt + enter, no se si
                          //es la clase que hay que importar para que funcione
 /**
  * FXML Controller class
@@ -84,7 +85,16 @@ public class FXMLSignUpController implements Initializable {
     @FXML
     private Button selectImage;
     @FXML
-    private Hyperlink BackButton;
+    private Label everythingCorrectLabel;
+    @FXML
+    private Label usernameLabel;
+    @FXML
+    private Label emailLabel;
+    @FXML
+    private Label passwordLabel;
+    @FXML
+    private Label repeatPasswordLabel;
+
 
     /**
      * Initializes the controller class.
@@ -100,25 +110,24 @@ public class FXMLSignUpController implements Initializable {
         primaryScene = primaryStage.getScene();
         primaryTitle = primaryStage.getTitle();
     }
-    //For coming back to Main window (login)
-    @FXML
-    private void handleBackButton(ActionEvent event) {
-            primaryStage.setScene(primaryScene);
-            primaryStage.setTitle(primaryTitle); 
-    }
 
     @FXML
     private void handleAcceptButton(ActionEvent event) throws Exception { //Sin el throws no funciona el singleton
         //Asumimos que todos los parametros son correctos pq lo habremos
         //comprobado en sus respectivos metodos:
-        String username = usernameTextfield.textProperty().getValue();
-        String email = emailTextfield.textProperty().getValue();
-        String password = passwordTextfield.textProperty().getValue();
-        Image avatar = avatarImage.getImage();
-        LocalDate birthday = birthdayDatepicker.getValue(); //Ni idea d si la fecha se saca con esto jsjs
-        
-        Navegacion nav = Navegacion.getSingletonNavegacion();
-        nav.registerUser(username, email, password, avatar, birthday);
+        if(todoCorrecto()) {
+            String username = usernameTextfield.textProperty().getValue();
+            String email = emailTextfield.textProperty().getValue();
+            String password = passwordTextfield.textProperty().getValue();
+            Image avatar = avatarImage.getImage();
+            LocalDate birthday = birthdayDatepicker.getValue(); //Ni idea d si la fecha se saca con esto jsjs
+
+            Navegacion nav = Navegacion.getSingletonNavegacion();
+            nav.registerUser(username, email, password, avatar, birthday);
+        } else {
+            everythingCorrectLabel.visibleProperty().setValue(true);
+            //mostrar mensaje de rellenar todos los campos correctamente.
+        }
     }
 
     @FXML
@@ -128,29 +137,72 @@ public class FXMLSignUpController implements Initializable {
     }
 
     @FXML
-    private void handleChangeUsername(InputMethodEvent event) {
-        
-    }
-
-    @FXML
     private void handleChangeBirthdate(InputMethodEvent event) {
     }
 
     @FXML
-    private void handleChangeEmail(InputMethodEvent event) {
-    }
-
-    @FXML
-    private void handleChangePassword(InputMethodEvent event) {
-    }
-
-    @FXML
-    private void handleChangeRepeatPassword(InputMethodEvent event) {
-    }
-
-    @FXML
     private void handleSelectImage(ActionEvent event) {
+        
     }
 
-    
+    private boolean todoCorrecto() throws Exception{
+        //metodo en el que comprobar a la vez si todos los campos son correctos
+        Navegacion nav = Navegacion.getSingletonNavegacion(); 
+        
+        return passwordTextfield.textProperty().getValue().equals(repeatPasswordTextfield.textProperty().getValue()) &&
+               User.checkPassword(passwordTextfield.textProperty().getValue()) &&
+               User.checkEmail(emailTextfield.textProperty().getValue()) &&
+               User.checkNickName(usernameTextfield.textProperty().getValue()) &&
+               !nav.exitsNickName(usernameTextfield.textProperty().getValue());
+    }
+
+    @FXML
+    private void handleChangeEmail(KeyEvent event) {
+        if(!User.checkEmail(emailTextfield.textProperty().getValueSafe())) {
+            //mostrar label diciendo que el formato no es correcto.
+            emailLabel.visibleProperty().setValue(true);
+        } else {
+            //deshabilitar la label para que no siga apareciendo si está bien
+            emailLabel.visibleProperty().setValue(false);
+        }
+    }
+
+    @FXML
+    private void handleChangeUsername(KeyEvent event) throws Exception{
+        Navegacion nav = Navegacion.getSingletonNavegacion();
+        if(!User.checkNickName(usernameTextfield.textProperty().getValue())) {
+            //si el usuario es incorrecto se muestra un mensaje que te dice el error.
+            usernameLabel.visibleProperty().setValue(true);
+        } else if (nav.exitsNickName(usernameTextfield.textProperty().getValue())) {
+            //si el usuario ya existe, se muestra un mensaje que te lo dice.
+            usernameLabel.textProperty().setValue("This user already exists");
+            usernameLabel.visibleProperty().setValue(true);
+        } else {
+            //deshabilitar la label para que no siga apareciendo si está bien
+            usernameLabel.visibleProperty().setValue(false);
+        }
+    }
+
+    @FXML
+    private void handleChangePassword(KeyEvent event) {
+        if(!User.checkPassword(passwordTextfield.textProperty().getValue())) {
+            //mostrar label diciendo que el formato no es correcto.
+            passwordLabel.visibleProperty().setValue(true);
+        } else {
+            //deshabilitar la label para que no siga apareciendo si está bien
+            passwordLabel.visibleProperty().setValue(false);
+        }
+    }
+
+    @FXML
+    private void handleChangeRepeatPassword(KeyEvent event) {
+        if(!passwordTextfield.textProperty().getValue().equals(repeatPasswordTextfield.textProperty().getValue())) {
+            //mostrar label diciendo que no son iguales ambas contraseñas
+            repeatPasswordLabel.visibleProperty().setValue(true);
+        } else {
+            //deshabilitar la label para que no siga apareciendo si está bien
+            repeatPasswordLabel.visibleProperty().setValue(false);
+        }
+    }
+
 }
