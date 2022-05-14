@@ -117,6 +117,25 @@ public class FXMLSignUpController implements Initializable {
         } catch (Exception e) {
 
         }
+        
+        //Un binding no sirve pq la funcion de la clase User te devuelve un boolean y no una property
+        //usernameLabel.visibleProperty().bind(!User.checkNickName(usernameTextfield.textProperty().getValue()));
+        
+        usernameLabel.visibleProperty().addListener((observable, oldValue, newValue) -> {
+            if(!usernameTextfield.textProperty().getValue().equals("")
+                && !User.checkNickName(usernameTextfield.textProperty().getValue())) {
+                usernameLabel.visibleProperty().setValue(true);
+            }
+            else usernameLabel.visibleProperty().setValue(false);
+        });
+        
+        emailLabel.visibleProperty().addListener((observable, oldValue, newValue) -> {
+            if(!emailTextfield.textProperty().getValue().equals("")
+                && !User.checkEmail(emailTextfield.textProperty().getValueSafe())) {
+                emailLabel.visibleProperty().setValue(true);
+            }
+            else emailLabel.visibleProperty().setValue(false);
+        });
     }   
     
     //For managin with stages
