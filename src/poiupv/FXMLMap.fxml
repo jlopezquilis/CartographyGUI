@@ -3,10 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -52,6 +54,12 @@
         <items>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
                <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <Hyperlink fx:id="hyperLink" onAction="#handleHyperLink" text="Log in" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
+               <children>
                 <Button mnemonicParsing="false" text="Draw point" />
                   <Button mnemonicParsing="false" text="Draw line">
                      <HBox.margin>
@@ -64,13 +72,19 @@
                   <Insets left="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="580.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0">
                <children>
-                  <ColorPicker />
+                  <ColorPicker fx:id="colorPicker" editable="true">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></ColorPicker>
                   <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Cartabon" />
                </children>
             </HBox>
         </items>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </ToolBar>
    </children>
 </VBox>
