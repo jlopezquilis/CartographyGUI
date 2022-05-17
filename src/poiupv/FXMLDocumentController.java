@@ -45,15 +45,12 @@ public class FXMLDocumentController implements Initializable {
     // el escalado se realiza sobre este nodo, al escalar el Group no mueve sus nodos
     private Group zoomGroup;
 
-    @FXML
     private ListView<Poi> map_listview;
     @FXML
     private ScrollPane map_scrollpane;
     @FXML
     private Slider zoom_slider;
-    @FXML
     private MenuButton map_pin;
-    @FXML
     private MenuItem pin_info;
     @FXML
     private Label posicion;
@@ -89,7 +86,6 @@ public class FXMLDocumentController implements Initializable {
         map_scrollpane.setVvalue(scrollV);
     }
 
-    @FXML
     void listClicked(MouseEvent event) {
         Poi itemSelected = map_listview.getSelectionModel().getSelectedItem();
 
