@@ -23,7 +23,7 @@
             </Text>
          </children>
          <BorderPane.margin>
-            <Insets top="10.0" />
+            <Insets />
          </BorderPane.margin>
       </HBox>
    </top>
@@ -32,7 +32,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="300.0">
+                  <VBox prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <Label text="Username: " textFill="WHITE">
                            <VBox.margin>
@@ -42,7 +42,7 @@
                               <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <TextField stylesheets="@LoginStyle.css">
+                        <TextField styleClass="textfield" stylesheets="@LoginStyle.css">
                            <VBox.margin>
                               <Insets left="15.0" top="3.0" />
                            </VBox.margin>
@@ -53,10 +53,13 @@
                      </children>
                   </VBox>
                </children>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="300.0">
+                  <VBox prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <Label text="Password:" textFill="WHITE">
                            <VBox.margin>
@@ -66,7 +69,7 @@
                               <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <PasswordField stylesheets="@LoginStyle.css">
+                        <PasswordField styleClass="textfield" stylesheets="@LoginStyle.css">
                            <VBox.margin>
                               <Insets left="15.0" top="3.0" />
                            </VBox.margin>

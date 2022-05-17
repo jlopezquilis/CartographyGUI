@@ -30,196 +30,200 @@
                   </Text>
                </children>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets />
                </VBox.margin>
                <padding>
                   <Insets bottom="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Username:" textFill="WHITE">
-                           <VBox.margin>
-                              <Insets left="15.0" top="10.0" />
-                           </VBox.margin>
+                        <VBox prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Username:" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Georgia" size="17.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="usernameTextfield" prefWidth="200.0" styleClass="textfield" stylesheets="@SignUpStyle.css">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="3.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <Label fx:id="usernameLabel" prefHeight="56.0" prefWidth="389.0" text="The format is not correct (between 6 and 15 characters without spaces). You can also use hyphens or sub-dashes." textFill="#fa5252" visible="false" wrapText="true">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="7.0" right="5.0" top="38.0" />
+                           </padding>
                            <font>
-                              <Font name="Georgia" size="17.0" />
+                              <Font name="Georgia Italic" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameTextfield" prefWidth="200.0">
-                           <VBox.margin>
-                              <Insets left="15.0" top="3.0" />
-                           </VBox.margin>
-                        </TextField>
                      </children>
-                  </VBox>
-                  <Label fx:id="usernameLabel" prefHeight="56.0" prefWidth="389.0" text="The format is not correct (between 6 and 15 characters without spaces). You can also use hyphens or sub-dashes." textFill="#fa5252" visible="false" wrapText="true">
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets left="7.0" right="5.0" top="38.0" />
-                     </padding>
-                     <font>
-                        <Font name="Georgia Italic" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="66.0" prefWidth="375.0">
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Email: " textFill="WHITE">
+                        <VBox prefHeight="66.0" prefWidth="250.0">
+                           <children>
+                              <Label text="Email: " textFill="WHITE">
+                                 <font>
+                                    <Font name="Georgia" size="17.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="emailTextfield" minHeight="26.0" minWidth="150.0" prefHeight="26.0" prefWidth="350.0" promptText="yourEmail@domain.com" styleClass="textfield" stylesheets="@SignUpStyle.css">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="3.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <Label fx:id="emailLabel" prefHeight="56.0" prefWidth="222.0" text="The format is not correct" textFill="#fa5252" visible="false">
+                           <padding>
+                              <Insets left="7.0" top="38.0" />
+                           </padding>
                            <font>
-                              <Font name="Georgia" size="17.0" />
+                              <Font name="Georgia Italic" size="12.0" />
                            </font>
-                           <VBox.margin>
-                              <Insets left="15.0" top="10.0" />
-                           </VBox.margin>
                         </Label>
-                        <TextField fx:id="emailTextfield" minHeight="26.0" minWidth="150.0" prefHeight="26.0" prefWidth="350.0" promptText="yourEmail@domain.com">
-                           <VBox.margin>
-                              <Insets left="15.0" top="3.0" />
-                           </VBox.margin>
-                        </TextField>
                      </children>
-                  </VBox>
-                  <Label fx:id="emailLabel" prefHeight="56.0" prefWidth="222.0" text="The format is not correct" textFill="#fa5252" visible="false">
-                     <padding>
-                        <Insets left="7.0" top="38.0" />
-                     </padding>
-                     <font>
-                        <Font name="Georgia Italic" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Password:" textFill="WHITE">
-                           <font>
-                              <Font name="Georgia" size="17.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="15.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <PasswordField fx:id="passwordTextfield" promptText="LettersNumbersSymbols">
-                           <VBox.margin>
-                              <Insets left="15.0" top="3.0" />
-                           </VBox.margin>
-                        </PasswordField>
-                     </children>
-                     <HBox.margin>
+                     <VBox.margin>
                         <Insets />
-                     </HBox.margin>
-                  </VBox>
-                  <Label fx:id="passwordLabel" prefHeight="30.0" prefWidth="389.0" text="The format is not correct (between 8 and 20 characters, with at least one lower and upper case letter and with special characters)" textFill="#fa5252" visible="false" wrapText="true">
-                     <padding>
-                        <Insets left="7.0" />
-                     </padding>
-                     <font>
-                        <Font name="Georgia Italic" size="12.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="29.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="200.0">
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Repeat Password: " textFill="WHITE">
-                           <VBox.margin>
-                              <Insets left="15.0" top="10.0" />
-                           </VBox.margin>
+                        <VBox prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Password:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Georgia" size="17.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <PasswordField fx:id="passwordTextfield" promptText="LettersNumbersSymbols" styleClass="textfield" stylesheets="@SignUpStyle.css">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="3.0" />
+                                 </VBox.margin>
+                              </PasswordField>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                        <Label fx:id="passwordLabel" prefHeight="30.0" prefWidth="389.0" text="The format is not correct (between 8 and 20 characters, with at least one lower and upper case letter and with special characters)" textFill="#fa5252" visible="false" wrapText="true">
+                           <padding>
+                              <Insets left="7.0" />
+                           </padding>
                            <font>
-                              <Font name="Georgia" size="17.0" />
+                              <Font name="Georgia Italic" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="29.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Repeat Password: " textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Georgia" size="17.0" />
+                                 </font>
+                              </Label>
+                              <PasswordField fx:id="repeatPasswordTextfield" promptText="LettersNumbersSymbols" styleClass="textfield" stylesheets="@SignUpStyle.css">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="3.0" />
+                                 </VBox.margin>
+                              </PasswordField>
+                           </children>
+                        </VBox>
+                        <Label fx:id="repeatPasswordLabel" text="Passwords do not match" textFill="#fa5252" visible="false">
+                           <padding>
+                              <Insets left="7.0" top="38.0" />
+                           </padding>
+                           <font>
+                              <Font name="Georgia Italic" size="12.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="repeatPasswordTextfield" promptText="LettersNumbersSymbols">
-                           <VBox.margin>
-                              <Insets left="15.0" top="3.0" />
-                           </VBox.margin>
-                        </PasswordField>
                      </children>
-                  </VBox>
-                  <Label fx:id="repeatPasswordLabel" text="Passwords do not match" textFill="#fa5252" visible="false">
-                     <padding>
-                        <Insets left="7.0" top="38.0" />
-                     </padding>
-                     <font>
-                        <Font name="Georgia Italic" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="200.0">
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Birthdate: " textFill="WHITE">
-                           <VBox.margin>
-                              <Insets left="15.0" top="10.0" />
-                           </VBox.margin>
+                        <VBox prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Birthdate: " textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Georgia" size="17.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="birthdayDatepicker" focusTraversable="false" promptText="dd/mm/yyyy" stylesheets="@SignUpStyle.css">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="3.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                        <Label fx:id="birthdayLabel" text="You must be at least 12 years old." textFill="#fa5252" visible="false">
+                           <padding>
+                              <Insets left="7.0" top="38.0" />
+                           </padding>
                            <font>
-                              <Font name="Georgia" size="17.0" />
+                              <Font name="Georgia Italic" size="12.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="birthdayDatepicker" focusTraversable="false" promptText="dd/mm/yyyy">
-                           <VBox.margin>
-                              <Insets left="15.0" top="3.0" />
-                           </VBox.margin>
-                        </DatePicker>
                      </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </VBox>
-                  <Label fx:id="birthdayLabel" text="You must be at least 12 years old." textFill="#fa5252" visible="false">
-                     <padding>
-                        <Insets left="7.0" top="38.0" />
-                     </padding>
-                     <font>
-                        <Font name="Georgia Italic" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <ImageView fx:id="avatarImage" fitHeight="90.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../resources/avatars/default.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="15.0" top="10.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <VBox alignment="CENTER" prefHeight="79.0" prefWidth="100.0">
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="selectImage" focusTraversable="false" mnemonicParsing="false" onAction="#onSelectImage" text="Select Image">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
+                        <ImageView fx:id="avatarImage" fitHeight="90.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/avatars/default.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="15.0" top="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <VBox alignment="CENTER" prefHeight="79.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="selectImage" focusTraversable="false" mnemonicParsing="false" onAction="#onSelectImage" stylesheets="@SignUpStyle.css" text="Select Image">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="10.0" top="10.0" />
+                           </HBox.margin>
+                        </VBox>
                      </children>
-                     <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
-                     </HBox.margin>
-                  </VBox>
+                  </HBox>
                </children>
-            </HBox>
+            </VBox>
          </children>
          <BorderPane.margin>
             <Insets />
@@ -237,12 +241,12 @@
                   <Font name="Georgia Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="acceptButton" focusTraversable="false" mnemonicParsing="false" onAction="#handleAcceptButton" text="Accept">
+            <Button fx:id="acceptButton" focusTraversable="false" mnemonicParsing="false" onAction="#handleAcceptButton" stylesheets="@SignUpStyle.css" text="Accept">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="cancelButton" focusTraversable="false" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel">
+            <Button fx:id="cancelButton" focusTraversable="false" mnemonicParsing="false" onAction="#handleCancelButton" stylesheets="@SignUpStyle.css" text="Cancel">
                <font>
                   <Font size="14.0" />
                </font>
