@@ -186,7 +186,29 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void handleOnActionSignUp(ActionEvent event) {
+    private void handleOnActionSignUp(ActionEvent event) throws IOException{
+        FXMLLoader myLoader = new FXMLLoader(getClass().getResource("FXMLSignUp.fxml"));
+        Pane root = (Pane) myLoader.load();
+        
+        FXMLSignUpController controller = myLoader.<FXMLSignUpController>getController();
+        
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        controller.initSU(stage, true);
+        stage.setScene(scene);
+        stage.setTitle("Sign Up");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    @FXML
+    private void handleOnActionAboutUs(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About us");
+        alert.setHeaderText("Creators of this splendid project");
+        alert.setContentText("Iván Haro Limiñana\nJuan Francisco López Quilis\nPablo Pérez Martínez");
+        alert.showAndWait();
     }
 
 }

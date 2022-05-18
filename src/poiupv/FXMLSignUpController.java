@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -25,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image; 
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.*;
@@ -48,6 +50,7 @@ public class FXMLSignUpController implements Initializable {
     private boolean password;
     private boolean repeatedPassword;
     private boolean bBirthday;
+    private boolean mainMenu;
     
     @FXML
     private Button acceptButton;
@@ -180,7 +183,8 @@ public class FXMLSignUpController implements Initializable {
     }   
     
     //For managin with stages
-    public void initSU(Stage stage) {
+    public void initSU(Stage stage, boolean mainMenu) {
+        this.mainMenu = mainMenu;
         previousStage = stage;
         logInScene = previousStage.getScene();
         logInTitle = previousStage.getTitle();
@@ -207,12 +211,19 @@ public class FXMLSignUpController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("User Information");
         String nick = usernameTextfield.textProperty().getValue();
-        alert.setHeaderText("User " + nick + " has been created.");
-        alert.setContentText("Now you can log in");
+        alert.setHeaderText("User " + nick + " has been created.\nNow you can log in");
         alert.showAndWait();
         
-        previousStage.setScene(logInScene);
-        previousStage.setTitle(logInTitle);
+        if(!mainMenu) {
+            previousStage.setScene(logInScene);
+            previousStage.setTitle(logInTitle);
+        } else {
+            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("FXMLLogIn.fxml"));
+            Pane root = (Pane) myLoader.load();
+            Scene scene = new Scene (root);
+            previousStage.setScene(scene);
+            previousStage.setTitle("Log In");
+        }
     }
     
     @FXML
@@ -229,8 +240,12 @@ public class FXMLSignUpController implements Initializable {
 
     @FXML
     private void handleCancelButton(ActionEvent event) {
-        previousStage.setScene(logInScene);
-        previousStage.setTitle(logInTitle);
+        if(!mainMenu) {
+            previousStage.setScene(logInScene);
+            previousStage.setTitle(logInTitle);
+        } else {
+            ((Node) event.getSource()).getScene().getWindow().hide();
+        }
     }
 
 

@@ -106,7 +106,7 @@ public class FXMLLogInController implements Initializable {
         Pane root = (Pane) myLoader.load();
         FXMLSignUpController SUController = myLoader.<FXMLSignUpController>getController();
         
-        SUController.initSU(logInStage);
+        SUController.initSU(logInStage, false);
         //We create the scene foe win1
         Scene scene = new Scene(root);
         //we asign new scene to current stage/window
