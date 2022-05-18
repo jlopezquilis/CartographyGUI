@@ -18,18 +18,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -41,6 +47,7 @@ import poiupv.Poi;
  * @author Juanito
  */
 public class FXMLDocumentController implements Initializable {
+    
 
     //=======================================
     // hashmap para guardar los puntos de interes POI
@@ -50,7 +57,6 @@ public class FXMLDocumentController implements Initializable {
     // el escalado se realiza sobre este nodo, al escalar el Group no mueve sus nodos
     private Group zoomGroup;
 
-    @FXML
     private ListView<Poi> map_listview;
     @FXML
     private ScrollPane map_scrollpane;
@@ -62,6 +68,11 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem pin_info;
     @FXML
     private Label posicion;
+    @FXML
+    private Button markButton;
+    
+    private double x, y;
+    private int tool; //tool = 0 is mark
     
     @FXML
     void zoomIn(ActionEvent event) {
@@ -93,8 +104,38 @@ public class FXMLDocumentController implements Initializable {
         map_scrollpane.setHvalue(scrollH);
         map_scrollpane.setVvalue(scrollV);
     }
-
+    
     @FXML
+    public void markButtonHandler (ActionEvent event) {
+        //Update tool selected
+        tool = 1;
+        //Change cursor to the pin for locating it
+        Image image = new Image("resources/pin.png");
+        Scene scene = markButton.getScene();
+        scene.setCursor(new ImageCursor(image));
+    }
+    
+    public void handleMouseClicked(MouseEvent event) {
+        //If tool == 1 (mark)
+        if (tool == 1) {
+            x = event.getSceneX();
+            y = event.getSceneY();
+            //Create a point (small circunference)
+            Circle circle = new Circle(x, y, 1);
+            double mapWidth = zoomGroup.getBoundsInLocal().getWidth();
+            double mapHeight = zoomGroup.getBoundsInLocal().getHeight();
+            zoomGroup.getChildren().add(circle);
+            //Go back to default value for tool
+            tool = 0;
+            //Set again cursor to normal
+            Scene scene = markButton.getScene();
+            scene.setCursor(Cursor.TEXT);
+        }
+        
+        
+    }
+
+    //Handler dado en el ejemplo. Podemos eliminarlo
     void listClicked(MouseEvent event) {
         Poi itemSelected = map_listview.getSelectionModel().getSelectedItem();
 
@@ -119,11 +160,9 @@ public class FXMLDocumentController implements Initializable {
         map_pin.setVisible(true);
     }
 
+    //Método dado en el ejemplo. Podemos eliminarlo
     private void initData() {
-        hm.put("2F", new Poi("2F", "Edificion del DSIC", 325, 225));
-        hm.put("Agora", new Poi("Agora", "Agora", 600, 360));
-        map_listview.getItems().add(hm.get("2F"));
-        map_listview.getItems().add(hm.get("Agora"));
+        
     }
 
     @Override
@@ -145,6 +184,8 @@ public class FXMLDocumentController implements Initializable {
         contentGroup.getChildren().add(zoomGroup);
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
+        
+        map_scrollpane.setOnMouseClicked(this:: handleMouseClicked);
 
     }
 
@@ -154,12 +195,10 @@ public class FXMLDocumentController implements Initializable {
                 + "         X: " + (int) event.getX() + ",          Y: " + (int) event.getY());
     }
 
-    @FXML
     private void cerrarAplicacion(ActionEvent event) {
         ((Stage)zoom_slider.getScene().getWindow()).close();
     }
 
-    @FXML
     private void acercaDe(ActionEvent event) {
         Alert mensaje= new Alert(Alert.AlertType.INFORMATION);
         mensaje.setTitle("Acerca de");
