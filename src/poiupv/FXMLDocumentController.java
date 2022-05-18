@@ -5,6 +5,7 @@
  */
 package poiupv;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +16,10 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -25,7 +28,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import poiupv.Poi;
@@ -45,16 +50,19 @@ public class FXMLDocumentController implements Initializable {
     // el escalado se realiza sobre este nodo, al escalar el Group no mueve sus nodos
     private Group zoomGroup;
 
+    @FXML
     private ListView<Poi> map_listview;
     @FXML
     private ScrollPane map_scrollpane;
     @FXML
     private Slider zoom_slider;
+    @FXML
     private MenuButton map_pin;
+    @FXML
     private MenuItem pin_info;
     @FXML
     private Label posicion;
-
+    
     @FXML
     void zoomIn(ActionEvent event) {
         //================================================
@@ -86,6 +94,7 @@ public class FXMLDocumentController implements Initializable {
         map_scrollpane.setVvalue(scrollV);
     }
 
+    @FXML
     void listClicked(MouseEvent event) {
         Poi itemSelected = map_listview.getSelectionModel().getSelectedItem();
 
@@ -156,6 +165,28 @@ public class FXMLDocumentController implements Initializable {
         mensaje.setTitle("Acerca de");
         mensaje.setHeaderText("IPC - 2022");
         mensaje.showAndWait();
+    }
+
+    @FXML
+    private void handleOnActionLogIn(ActionEvent event) throws IOException{
+        FXMLLoader myLoader = new FXMLLoader(getClass().getResource("FXMLLogIn.fxml"));
+        Pane root = (Pane) myLoader.load();
+        
+        FXMLLogInController controller = myLoader.<FXMLLogInController>getController();
+        
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        controller.initMainWindow(stage);
+        stage.setScene(scene);
+        stage.setTitle("Log In");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setResizable(false);
+        stage.show();
+        
+    }
+
+    @FXML
+    private void handleOnActionSignUp(ActionEvent event) {
     }
 
 }

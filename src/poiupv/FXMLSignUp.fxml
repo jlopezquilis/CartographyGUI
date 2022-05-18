@@ -57,7 +57,7 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <Label fx:id="usernameLabel" prefHeight="56.0" prefWidth="389.0" text="The format is not correct (between 6 and 15 characters without spaces). You can also use hyphens or sub-dashes." textFill="#fa5252" wrapText="true">
+                        <Label fx:id="usernameLabel" prefHeight="56.0" prefWidth="389.0" text="The format is not correct (between 6 and 15 characters without spaces). You can also use hyphens or sub-dashes." textFill="#fa5252" visible="false" wrapText="true">
                            <HBox.margin>
                               <Insets top="29.0" />
                            </HBox.margin>
@@ -226,7 +226,7 @@
             </VBox>
          </children>
          <BorderPane.margin>
-            <Insets />
+            <Insets top="7.0" />
          </BorderPane.margin>
          <padding>
             <Insets top="5.0" />

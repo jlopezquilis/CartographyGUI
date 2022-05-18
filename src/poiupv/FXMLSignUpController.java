@@ -37,8 +37,8 @@ public class FXMLSignUpController implements Initializable {
     
     //For managing with Stages
     private Stage previousStage;
-    private Scene previousScene;
-    private String previousTitle;
+    private Scene logInScene;
+    private String logInTitle;
     private Navegacion nav;
     private File selectedFile;
     
@@ -88,87 +88,93 @@ public class FXMLSignUpController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //Declaramos objeto Navegacion para base de datos
-        try {
-            nav = Navegacion.getSingletonNavegacion();
-        } catch (Exception e) {
-
-        }
+        try {nav = Navegacion.getSingletonNavegacion();} catch (Exception e) {}
         
         usernameTextfield.focusedProperty().addListener((observable, oldVal, newVal) -> 
         {
-            String nick = usernameTextfield.textProperty().getValue();
-            if(nav.exitsNickName(nick)) {
-                acceptButton.disableProperty().setValue(true);
-                usernameLabel.textProperty().setValue("This user already exists.");
-                usernameLabel.visibleProperty().setValue(true);
-                user = false;
-            } else if (!User.checkNickName(nick)) {
-                acceptButton.disableProperty().setValue(true);
-                usernameLabel.textProperty().setValue("The format is not correct (between 6 and 15 characters without spaces). You can also use hyphens or sub-dashes.");
-                usernameLabel.visibleProperty().setValue(true);
-                user = false;
-            } else {
-                usernameLabel.visibleProperty().setValue(false);
-                user = true;
-                if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+            if(!newVal) {
+                String nick = usernameTextfield.textProperty().getValue();
+                if(nav.exitsNickName(nick)) {
+                    acceptButton.disableProperty().setValue(true);
+                    usernameLabel.textProperty().setValue("This user already exists.");
+                    usernameLabel.visibleProperty().setValue(true);
+                    user = false;
+                } else if (!User.checkNickName(nick)) {
+                    acceptButton.disableProperty().setValue(true);
+                    usernameLabel.textProperty().setValue("The format is not correct (between 6 and 15 characters without spaces). You can also use hyphens or sub-dashes.");
+                    usernameLabel.visibleProperty().setValue(true);
+                    user = false;
+                } else {
+                    usernameLabel.visibleProperty().setValue(false);
+                    user = true;
+                    if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+                }
             }
         });
         
         emailTextfield.focusedProperty().addListener((observable, oldVal, newVal) -> 
         {
-            String sEmail = emailTextfield.textProperty().getValue();
-            if(!User.checkEmail(sEmail)) {
-                acceptButton.disableProperty().setValue(true);
-                emailLabel.visibleProperty().setValue(true);
-                email = false;
-            } else {
-                emailLabel.visibleProperty().setValue(false);
-                email = true;
-                if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+            if(!newVal) {
+                String sEmail = emailTextfield.textProperty().getValue();
+                if(!User.checkEmail(sEmail)) {
+                    acceptButton.disableProperty().setValue(true);
+                    emailLabel.visibleProperty().setValue(true);
+                    email = false;
+                } else {
+                    emailLabel.visibleProperty().setValue(false);
+                    email = true;
+                    if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+                }
             }
         });
         
         passwordTextfield.focusedProperty().addListener((observable, oldVal, newVal) -> 
         {
-           String pass =  passwordTextfield.textProperty().getValue();
-           if(!User.checkPassword(pass)) {
-               acceptButton.disableProperty().setValue(true);
-               passwordLabel.visibleProperty().setValue(true);
-               password = false;
-           } else {
-               passwordLabel.visibleProperty().setValue(false);
-               password = true;
-               if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
-           }
+            if(!newVal) {
+                String pass =  passwordTextfield.textProperty().getValue();
+                if(!User.checkPassword(pass)) {
+                    acceptButton.disableProperty().setValue(true);
+                    passwordLabel.visibleProperty().setValue(true);
+                    password = false;
+                } else {
+                    passwordLabel.visibleProperty().setValue(false);
+                    password = true;
+                    if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+                }
+            }
         });
         
         repeatPasswordTextfield.focusedProperty().addListener((observable, oldVal, newVal) -> 
         {
-            String pass =  passwordTextfield.textProperty().getValue();
-            String repeatPass = repeatPasswordTextfield.textProperty().getValue();
-            if(!pass.equals(repeatPass)) {
-               acceptButton.disableProperty().setValue(true);
-               repeatPasswordLabel.visibleProperty().setValue(true);
-               repeatedPassword = false;
-            } else {
-               repeatPasswordLabel.visibleProperty().setValue(false);
-               repeatedPassword = true;
-               if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+            if(!newVal) {
+                String pass =  passwordTextfield.textProperty().getValue();
+                String repeatPass = repeatPasswordTextfield.textProperty().getValue();
+                if(!pass.equals(repeatPass)) {
+                   acceptButton.disableProperty().setValue(true);
+                   repeatPasswordLabel.visibleProperty().setValue(true);
+                   repeatedPassword = false;
+                } else {
+                   repeatPasswordLabel.visibleProperty().setValue(false);
+                   repeatedPassword = true;
+                   if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+                }
             }
         });
         
         birthdayDatepicker.focusedProperty().addListener((observable, oldVal, newVal) -> 
         {
-            LocalDate birthday = birthdayDatepicker.getValue();
-            LocalDate today = LocalDate.now();
-            if (birthday.compareTo(today.minusYears(12)) > 0) {
-                acceptButton.disableProperty().setValue(true);
-                birthdayLabel.visibleProperty().setValue(true);
-                bBirthday = false;
-            } else {
-                birthdayLabel.visibleProperty().setValue(false);
-                bBirthday = true;
-                if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+            if(!newVal) {
+                LocalDate birthday = birthdayDatepicker.getValue();
+                LocalDate today = LocalDate.now();
+                if (birthday.compareTo(today.minusYears(12)) > 0) {
+                    acceptButton.disableProperty().setValue(true);
+                    birthdayLabel.visibleProperty().setValue(true);
+                    bBirthday = false;
+                } else {
+                    birthdayLabel.visibleProperty().setValue(false);
+                    bBirthday = true;
+                    if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+                }
             }
         });
     }   
@@ -176,8 +182,8 @@ public class FXMLSignUpController implements Initializable {
     //For managin with stages
     public void initSU(Stage stage) {
         previousStage = stage;
-        previousScene = previousStage.getScene();
-        previousTitle = previousStage.getTitle();
+        logInScene = previousStage.getScene();
+        logInTitle = previousStage.getTitle();
     }
 
     @FXML
@@ -205,8 +211,8 @@ public class FXMLSignUpController implements Initializable {
         alert.setContentText("Now you can log in");
         alert.showAndWait();
         
-        previousStage.setScene(previousScene);
-        previousStage.setTitle(previousTitle);
+        previousStage.setScene(logInScene);
+        previousStage.setTitle(logInTitle);
     }
     
     @FXML
@@ -223,8 +229,8 @@ public class FXMLSignUpController implements Initializable {
 
     @FXML
     private void handleCancelButton(ActionEvent event) {
-        previousStage.setScene(previousScene);
-        previousStage.setTitle(previousTitle);
+        previousStage.setScene(logInScene);
+        previousStage.setTitle(logInTitle);
     }
 
 
