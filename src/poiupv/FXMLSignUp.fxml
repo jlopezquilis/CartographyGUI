@@ -57,12 +57,12 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <Label fx:id="usernameLabel" prefHeight="56.0" prefWidth="389.0" text="The format is not correct (between 6 and 15 characters without spaces). You can also use hyphens or sub-dashes." textFill="#fa5252" visible="false" wrapText="true">
+                        <Label fx:id="usernameLabel" prefHeight="56.0" prefWidth="389.0" text="The format is not correct (between 6 and 15 characters without spaces). You can also use hyphens or sub-dashes." textFill="#fa5252" wrapText="true">
                            <HBox.margin>
-                              <Insets right="5.0" />
+                              <Insets top="29.0" />
                            </HBox.margin>
                            <padding>
-                              <Insets left="7.0" right="5.0" top="38.0" />
+                              <Insets left="7.0" />
                            </padding>
                            <font>
                               <Font name="Georgia Italic" size="12.0" />
@@ -178,7 +178,7 @@
                                     <Font name="Georgia" size="17.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="birthdayDatepicker" focusTraversable="false" promptText="dd/mm/yyyy" stylesheets="@SignUpStyle.css">
+                              <DatePicker fx:id="birthdayDatepicker" promptText="dd/mm/yyyy" stylesheets="@SignUpStyle.css">
                                  <VBox.margin>
                                     <Insets left="15.0" top="3.0" />
                                  </VBox.margin>
@@ -241,12 +241,12 @@
                   <Font name="Georgia Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="acceptButton" focusTraversable="false" mnemonicParsing="false" onAction="#handleAcceptButton" stylesheets="@SignUpStyle.css" text="Accept">
+            <Button fx:id="acceptButton" mnemonicParsing="false" onAction="#handleAcceptButton" stylesheets="@SignUpStyle.css" text="Accept">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="cancelButton" focusTraversable="false" mnemonicParsing="false" onAction="#handleCancelButton" stylesheets="@SignUpStyle.css" text="Cancel">
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButton" stylesheets="@SignUpStyle.css" text="Cancel">
                <font>
                   <Font size="14.0" />
                </font>

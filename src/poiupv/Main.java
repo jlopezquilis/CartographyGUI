@@ -23,13 +23,13 @@ public class Main extends Application {
         // 1- creación del grafo de escena a partir del fichero FXML
         //Empezamos con el Login. De ahi podrá derivarse a SignUp o bien al iniciar sesion, al programa.
         //Ayuda: Practica 3.2 va sobre cambio de stages y ventanas.
-        FXMLLoader loader= new  FXMLLoader(getClass().getResource("FXMLMap.fxml"));
+        FXMLLoader loader= new  FXMLLoader(getClass().getResource("FXMLLogIn.fxml"));
         Parent root = loader.load();
         //======================================================================
         // 2- creación de la escena con el nodo raiz del grafo de escena
         Scene scene = new Scene(root);
         // 2.2- Codigo para configurar el paso de un stage a otro
-        FXMLMapController mainController = loader.<FXMLMapController>getController();
+        FXMLLogInController mainController = loader.<FXMLLogInController>getController();
         //Set current stage as main stage
         mainController.initMainWindow(stage);
         //======================================================================

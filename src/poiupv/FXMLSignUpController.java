@@ -5,59 +5,29 @@
  */
 package poiupv;
 
-/*import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;*/
-
-//Imports copiados del fxml document controller:
 import java.io.File;
 import java.net.URL;
-import java.time.LocalDate; //Import que he añadido con alt + enter, comprobar que sea el bueno
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.time.LocalDate; 
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import poiupv.Poi;
-//Estos d abajo tb hacen falta para que funcione en este caso
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image; //Otro import que he añadido con el alt + enter, hay que comprobar que esté bien
+import javafx.scene.control.Alert;
+import javafx.scene.image.Image; 
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import model.*;//Esto lo he añadido con lo d alt + enter, no se si
-                         //es la clase que hay que importar para que funcione
+import model.*;
 /**
  * FXML Controller class
  *
@@ -70,8 +40,14 @@ public class FXMLSignUpController implements Initializable {
     private Scene previousScene;
     private String previousTitle;
     private Navegacion nav;
-    private LocalDate birthday;
     private File selectedFile;
+    
+    // Propiedades booleanas para saber si los campos están bien completados
+    private boolean user;
+    private boolean email;
+    private boolean password;
+    private boolean repeatedPassword;
+    private boolean bBirthday;
     
     @FXML
     private Button acceptButton;
@@ -118,23 +94,82 @@ public class FXMLSignUpController implements Initializable {
 
         }
         
-        //Un binding no sirve pq la funcion de la clase User te devuelve un boolean y no una property
-        //usernameLabel.visibleProperty().bind(!User.checkNickName(usernameTextfield.textProperty().getValue()));
-        
-        usernameLabel.visibleProperty().addListener((observable, oldValue, newValue) -> {
-            if(!usernameTextfield.textProperty().getValue().equals("")
-                && !User.checkNickName(usernameTextfield.textProperty().getValue())) {
+        usernameTextfield.focusedProperty().addListener((observable, oldVal, newVal) -> 
+        {
+            String nick = usernameTextfield.textProperty().getValue();
+            if(nav.exitsNickName(nick)) {
+                acceptButton.disableProperty().setValue(true);
+                usernameLabel.textProperty().setValue("This user already exists.");
                 usernameLabel.visibleProperty().setValue(true);
+                user = false;
+            } else if (!User.checkNickName(nick)) {
+                acceptButton.disableProperty().setValue(true);
+                usernameLabel.textProperty().setValue("The format is not correct (between 6 and 15 characters without spaces). You can also use hyphens or sub-dashes.");
+                usernameLabel.visibleProperty().setValue(true);
+                user = false;
+            } else {
+                usernameLabel.visibleProperty().setValue(false);
+                user = true;
+                if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
             }
-            else usernameLabel.visibleProperty().setValue(false);
         });
         
-        emailLabel.visibleProperty().addListener((observable, oldValue, newValue) -> {
-            if(!emailTextfield.textProperty().getValue().equals("")
-                && !User.checkEmail(emailTextfield.textProperty().getValueSafe())) {
+        emailTextfield.focusedProperty().addListener((observable, oldVal, newVal) -> 
+        {
+            String sEmail = emailTextfield.textProperty().getValue();
+            if(!User.checkEmail(sEmail)) {
+                acceptButton.disableProperty().setValue(true);
                 emailLabel.visibleProperty().setValue(true);
+                email = false;
+            } else {
+                emailLabel.visibleProperty().setValue(false);
+                email = true;
+                if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
             }
-            else emailLabel.visibleProperty().setValue(false);
+        });
+        
+        passwordTextfield.focusedProperty().addListener((observable, oldVal, newVal) -> 
+        {
+           String pass =  passwordTextfield.textProperty().getValue();
+           if(!User.checkPassword(pass)) {
+               acceptButton.disableProperty().setValue(true);
+               passwordLabel.visibleProperty().setValue(true);
+               password = false;
+           } else {
+               passwordLabel.visibleProperty().setValue(false);
+               password = true;
+               if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+           }
+        });
+        
+        repeatPasswordTextfield.focusedProperty().addListener((observable, oldVal, newVal) -> 
+        {
+            String pass =  passwordTextfield.textProperty().getValue();
+            String repeatPass = repeatPasswordTextfield.textProperty().getValue();
+            if(!pass.equals(repeatPass)) {
+               acceptButton.disableProperty().setValue(true);
+               repeatPasswordLabel.visibleProperty().setValue(true);
+               repeatedPassword = false;
+            } else {
+               repeatPasswordLabel.visibleProperty().setValue(false);
+               repeatedPassword = true;
+               if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+            }
+        });
+        
+        birthdayDatepicker.focusedProperty().addListener((observable, oldVal, newVal) -> 
+        {
+            LocalDate birthday = birthdayDatepicker.getValue();
+            LocalDate today = LocalDate.now();
+            if (birthday.compareTo(today.minusYears(12)) > 0) {
+                acceptButton.disableProperty().setValue(true);
+                birthdayLabel.visibleProperty().setValue(true);
+                bBirthday = false;
+            } else {
+                birthdayLabel.visibleProperty().setValue(false);
+                bBirthday = true;
+                if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
+            }
         });
     }   
     
@@ -147,57 +182,7 @@ public class FXMLSignUpController implements Initializable {
 
     @FXML
     private void handleAcceptButton(ActionEvent event) throws Exception { //Sin el throws no funciona el singleton
-        
-        //Checking user
-        if(!User.checkNickName(usernameTextfield.textProperty().getValue())) {
-            //si el usuario es incorrecto se muestra un mensaje que te dice el error.
-            usernameLabel.visibleProperty().setValue(true);
-        } else if (nav.exitsNickName(usernameTextfield.textProperty().getValue())) {
-            //si el usuario ya existe, se muestra un mensaje que te lo dice.
-            usernameLabel.textProperty().setValue("This user already exists");
-            usernameLabel.visibleProperty().setValue(true);
-        } else {
-            //deshabilitar la label para que no siga apareciendo si está bien
-            usernameLabel.visibleProperty().setValue(false);
-        }
-        
-        //Checking email
-        if(!User.checkEmail(emailTextfield.textProperty().getValueSafe())) {
-            //mostrar label diciendo que el formato no es correcto.
-            emailLabel.visibleProperty().setValue(true);
-        } else {
-            //deshabilitar la label para que no siga apareciendo si está bien
-            emailLabel.visibleProperty().setValue(false);
-        }
-        
-        //Checking password
-        if(!User.checkPassword(passwordTextfield.textProperty().getValue())) {
-            //mostrar label diciendo que el formato no es correcto.
-            passwordLabel.visibleProperty().setValue(true);
-        } else {
-            //deshabilitar la label para que no siga apareciendo si está bien
-            passwordLabel.visibleProperty().setValue(false);
-        }
-        
-        //Checking repeat password
-        
-        if(!passwordTextfield.textProperty().getValue().equals(repeatPasswordTextfield.textProperty().getValue())) {
-            //mostrar label diciendo que no son iguales ambas contraseñas
-            repeatPasswordLabel.visibleProperty().setValue(true);
-        } else {
-            //deshabilitar la label para que no siga apareciendo si está bien
-            repeatPasswordLabel.visibleProperty().setValue(false);
-        }
-        
-        //Checking birthdate
-        birthday = birthdayDatepicker.getValue();
-        LocalDate today = LocalDate.now();
-        if (birthday.compareTo(today.minusYears(12)) > 0) {
-            birthdayLabel.visibleProperty().setValue(true);
-        } else {
-            birthdayLabel.visibleProperty().setValue(false);
-        }
-        
+                    
         //Asumimos que todos los parametros son correctos pq lo habremos
         //comprobado en sus respectivos metodos:
         if(todoCorrecto()) {
@@ -205,12 +190,23 @@ public class FXMLSignUpController implements Initializable {
             String email = emailTextfield.textProperty().getValue();
             String password = passwordTextfield.textProperty().getValue();
             Image avatar = avatarImage.getImage();
+            LocalDate birthday = birthdayDatepicker.getValue();
 
             nav.registerUser(username, email, password, avatar, birthday);
         } else {
             everythingCorrectLabel.visibleProperty().setValue(true);
             //mostrar mensaje de rellenar todos los campos correctamente.
         }
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("User Information");
+        String nick = usernameTextfield.textProperty().getValue();
+        alert.setHeaderText("User " + nick + " has been created.");
+        alert.setContentText("Now you can log in");
+        alert.showAndWait();
+        
+        previousStage.setScene(previousScene);
+        previousStage.setTitle(previousTitle);
     }
     
     @FXML
@@ -233,59 +229,9 @@ public class FXMLSignUpController implements Initializable {
 
 
 
-    private boolean todoCorrecto() throws Exception{
+    private boolean todoCorrecto() {
         //metodo en el que comprobar a la vez si todos los campos son correctos
-        
-        return passwordTextfield.textProperty().getValue().equals(repeatPasswordTextfield.textProperty().getValue()) &&
-               User.checkPassword(passwordTextfield.textProperty().getValue()) &&
-               User.checkEmail(emailTextfield.textProperty().getValue()) &&
-               User.checkNickName(usernameTextfield.textProperty().getValue()) &&
-               !nav.exitsNickName(usernameTextfield.textProperty().getValue());
-    }
-
-    private void handleChangeEmail(KeyEvent event) {
-        if(!User.checkEmail(emailTextfield.textProperty().getValueSafe())) {
-            //mostrar label diciendo que el formato no es correcto.
-            emailLabel.visibleProperty().setValue(true);
-        } else {
-            //deshabilitar la label para que no siga apareciendo si está bien
-            emailLabel.visibleProperty().setValue(false);
-        }
-    }
-
-    private void handleChangeUsername(KeyEvent event) throws Exception{
-        
-        if(!User.checkNickName(usernameTextfield.textProperty().getValue())) {
-            //si el usuario es incorrecto se muestra un mensaje que te dice el error.
-            usernameLabel.visibleProperty().setValue(true);
-        } else if (nav.exitsNickName(usernameTextfield.textProperty().getValue())) {
-            //si el usuario ya existe, se muestra un mensaje que te lo dice.
-            usernameLabel.textProperty().setValue("This user already exists");
-            usernameLabel.visibleProperty().setValue(true);
-        } else {
-            //deshabilitar la label para que no siga apareciendo si está bien
-            usernameLabel.visibleProperty().setValue(false);
-        }
-    }
-
-    private void handleChangePassword(KeyEvent event) {
-        if(!User.checkPassword(passwordTextfield.textProperty().getValue())) {
-            //mostrar label diciendo que el formato no es correcto.
-            passwordLabel.visibleProperty().setValue(true);
-        } else {
-            //deshabilitar la label para que no siga apareciendo si está bien
-            passwordLabel.visibleProperty().setValue(false);
-        }
-    }
-
-    private void handleChangeRepeatPassword(KeyEvent event) {
-        if(!passwordTextfield.textProperty().getValue().equals(repeatPasswordTextfield.textProperty().getValue())) {
-            //mostrar label diciendo que no son iguales ambas contraseñas
-            repeatPasswordLabel.visibleProperty().setValue(true);
-        } else {
-            //deshabilitar la label para que no siga apareciendo si está bien
-            repeatPasswordLabel.visibleProperty().setValue(false);
-        }
+        return user && password && repeatedPassword && email && bBirthday;
     }
 
 }
