@@ -30,6 +30,8 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -69,10 +71,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label posicion;
     @FXML
-    private Button markButton;
+    private ToggleButton markButton;
+    private Circle circle;
+    @FXML
+    private ToggleGroup tool;
     
-    private double x, y;
-    private int tool; //tool = 0 is mark
     
     @FXML
     void zoomIn(ActionEvent event) {
@@ -105,31 +108,21 @@ public class FXMLDocumentController implements Initializable {
         map_scrollpane.setVvalue(scrollV);
     }
     
-    @FXML
-    public void markButtonHandler (ActionEvent event) {
-        //Update tool selected
-        tool = 1;
-        //Change cursor to the pin for locating it
-        Image image = new Image("resources/pin.png");
-        Scene scene = markButton.getScene();
-        scene.setCursor(new ImageCursor(image));
-    }
     
-    public void handleMouseClicked(MouseEvent event) {
-        //If tool == 1 (mark)
-        if (tool == 1) {
-            x = event.getSceneX();
-            y = event.getSceneY();
+    @FXML
+    public void toolPrint(MouseEvent event) {
+        //If tool selected is mark
+        if (markButton.isSelected()) {
             //Create a point (small circunference)
-            Circle circle = new Circle(x, y, 1);
-            double mapWidth = zoomGroup.getBoundsInLocal().getWidth();
-            double mapHeight = zoomGroup.getBoundsInLocal().getHeight();
+            circle = new Circle(5);
+            //Apply color and thickness to point (For developing in future)
+            /*
+            circle.setStroke(currentColor);
+            /circle.setStrokeWidth(currentThickness);;
+            */
             zoomGroup.getChildren().add(circle);
-            //Go back to default value for tool
-            tool = 0;
-            //Set again cursor to normal
-            Scene scene = markButton.getScene();
-            scene.setCursor(Cursor.TEXT);
+            circle.setCenterX(event.getX());
+            circle.setCenterY(event.getY());
         }
         
         
@@ -183,9 +176,8 @@ public class FXMLDocumentController implements Initializable {
         zoomGroup = new Group();
         contentGroup.getChildren().add(zoomGroup);
         zoomGroup.getChildren().add(map_scrollpane.getContent());
+        //zoomGroup.getChildren().add(circle);
         map_scrollpane.setContent(contentGroup);
-        
-        map_scrollpane.setOnMouseClicked(this:: handleMouseClicked);
 
     }
 
@@ -249,5 +241,6 @@ public class FXMLDocumentController implements Initializable {
         alert.setContentText("Iván Haro Limiñana\nJuan Francisco López Quilis\nPablo Pérez Martínez");
         alert.showAndWait();
     }
+
 
 }
