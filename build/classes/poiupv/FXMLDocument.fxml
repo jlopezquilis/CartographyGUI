@@ -58,7 +58,14 @@
                   <ToggleGroup fx:id="tool" />
                </toggleGroup>
             </ToggleButton>
-            <ToggleButton mnemonicParsing="false" text="Line" toggleGroup="$tool" />
+            <ToggleButton fx:id="lineButton" mnemonicParsing="false" toggleGroup="$tool">
+               <graphic>
+                  <ImageView fitHeight="19.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/line.png" />
+                     </image>
+                  </ImageView>
+               </graphic></ToggleButton>
             <ToggleButton mnemonicParsing="false" text="Arc" toggleGroup="$tool" />
             <ToggleButton mnemonicParsing="false" text="Text" toggleGroup="$tool" />
             <ColorPicker fx:id="colorPick" />

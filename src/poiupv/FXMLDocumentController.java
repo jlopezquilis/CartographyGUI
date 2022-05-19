@@ -80,6 +80,11 @@ public class FXMLDocumentController implements Initializable {
     private ColorPicker colorPick;
     @FXML
     private Slider sliderThick;
+    @FXML
+    private ToggleButton lineButton;
+    
+    //For moving nodes
+    private double startTransX, startTransY;
     
     
     @FXML
@@ -115,7 +120,7 @@ public class FXMLDocumentController implements Initializable {
     
     
     @FXML
-    public void toolPrint(MouseEvent event) {
+    public void toolPrint(MouseEvent event) {     
         //If tool selected is mark
         if (markButton.isSelected()) {
             //Create a point (small circunference)
@@ -130,6 +135,25 @@ public class FXMLDocumentController implements Initializable {
             circle.setCenterY(event.getY());
         }
         
+        //If tool selected is line
+        else if (lineButton.isSelected()) {
+            
+        }
+        
+        //If no tool selected then apply the functionality to move nodes
+        else {
+            //Saving position for future moving the node
+            startTransX = event.getSceneX();
+            startTransY = event.getSceneY();
+            //baseX = protractor.getTranslateX();
+            
+        }
+        
+    }
+    
+    private void handleMouseDragged(MouseEvent event) {
+        double despX = event.getSceneX();
+        double despY = event.getSceneY();
         
     }
 
