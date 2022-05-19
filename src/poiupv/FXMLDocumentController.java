@@ -247,5 +247,20 @@ public class FXMLDocumentController implements Initializable {
         alert.showAndWait();
     }
 
+    @FXML
+    private void handleOnActionPickRandom(ActionEvent event) throws IOException{
+        FXMLLoader myLoader = new FXMLLoader(getClass().getResource("FXMLQuestions.fxml"));
+        Pane root = (Pane) myLoader.load();
+        
+        FXMLQuestionsController controller = myLoader.<FXMLQuestionsController>getController();
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        controller.initRandom(-1);
+        stage.setTitle("Question");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+    }
+
 
 }

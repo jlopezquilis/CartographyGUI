@@ -34,7 +34,7 @@
           <Menu mnemonicParsing="false" text="Problems">
             <items>
               <MenuItem mnemonicParsing="false" text="Select Problem" />
-                  <MenuItem mnemonicParsing="false" text="Pick a random Problem" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOnActionPickRandom" text="Pick a random Problem" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

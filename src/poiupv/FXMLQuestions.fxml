@@ -7,17 +7,21 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" spacing="12.0" styleClass="background" stylesheets="@ExercisesStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLQuestionsController">
+<VBox alignment="TOP_CENTER" prefHeight="550.0" prefWidth="800.0" spacing="12.0" styleClass="background" stylesheets="@ExercisesStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLQuestionsController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="statement-container" stylesheets="@ExercisesStyle.css">
+      <VBox alignment="TOP_CENTER" prefHeight="230.0" prefWidth="100.0" styleClass="statement-container" stylesheets="@ExercisesStyle.css">
          <children>
-            <Label alignment="CENTER" prefWidth="800.0" styleClass="question-number" stylesheets="@ExercisesStyle.css" text="Question number X">
+            <Label fx:id="labelNumber" alignment="CENTER" prefWidth="800.0" styleClass="question-number" stylesheets="@ExercisesStyle.css" text="Question number X">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Georgia" size="12.0" />
+               </font>
             </Label>
-            <Label styleClass="statement" stylesheets="@ExercisesStyle.css" text="Example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question " wrapText="true">
+            <Label fx:id="labelQuestion" styleClass="statement" stylesheets="@ExercisesStyle.css" text="Example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question example question " textAlignment="JUSTIFY" wrapText="true">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="20.0" />
                </VBox.margin>
@@ -44,21 +48,20 @@
             <RadioButton fx:id="answer4" mnemonicParsing="false" styleClass="answer" stylesheets="@ExercisesStyle.css" text="Answer 4" toggleGroup="$answers" wrapText="true" />
          </children>
          <VBox.margin>
-            <Insets left="100.0" right="30.0" top="30.0" />
+            <Insets left="30.0" right="30.0" top="30.0" />
          </VBox.margin>
       </VBox>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" stylesheets="@ExercisesStyle.css">
          <children>
-            <Button mnemonicParsing="false" stylesheets="@ExercisesStyle.css" text="Previous question" />
-            <Button mnemonicParsing="false" stylesheets="@ExercisesStyle.css" text="Check answer">
+            <Button fx:id="buttonCheckAnswer" mnemonicParsing="false" onAction="#handleOnActionButtonChechAnswer" stylesheets="@ExercisesStyle.css" text="Check answer">
                <HBox.margin>
                   <Insets left="30.0" right="30.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" stylesheets="@ExercisesStyle.css" text="Next Question" />
+            <Button fx:id="buttonNextQuest" mnemonicParsing="false" onAction="#handleOnActionButtonNextQuest" stylesheets="@ExercisesStyle.css" text="Next Question" />
          </children>
          <VBox.margin>
-            <Insets right="30.0" top="10.0" />
+            <Insets bottom="20.0" right="30.0" top="10.0" />
          </VBox.margin>
       </HBox>
    </children>

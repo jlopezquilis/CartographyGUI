@@ -13,6 +13,7 @@ and open the template in the editor.
     -fx-text-fill: white;
     -fx-background-radius: 50;
     -fx-font-size: 15px;
+    
 }
 
 .background {
@@ -21,10 +22,12 @@ and open the template in the editor.
 
 .statement {
     -fx-font-size: 15px;
+    -fx-font-family: Georgia;
 }
 
 .question-number {
     -fx-font-size: 30px;
+    -fx-font-family: Georgia;
 }
 
 .statement-container {
@@ -34,7 +37,7 @@ and open the template in the editor.
 .answer {
     -fx-text-fill: white;
     -fx-font-size: 15px;
-    -fx-font-style: georgia;
+    -fx-font-family: Georgia;
 }
 
 .answer .radio {
