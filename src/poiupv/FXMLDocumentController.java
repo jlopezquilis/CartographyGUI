@@ -78,6 +78,8 @@ public class FXMLDocumentController implements Initializable {
     private ToggleGroup tool;
     @FXML
     private ColorPicker colorPick;
+    @FXML
+    private Slider sliderThick;
     
     
     @FXML
@@ -119,10 +121,10 @@ public class FXMLDocumentController implements Initializable {
             //Create a point (small circunference)
             circle = new Circle(5);
             //Apply color and thickness to point (For developing in future)
-            /*
-            circle.setStroke(currentColor);
-            /circle.setStrokeWidth(currentThickness);;
-            */
+            
+            circle.setFill(colorPick.getValue());
+            circle.setStrokeWidth(sliderThick.getValue());;
+            
             zoomGroup.getChildren().add(circle);
             circle.setCenterX(event.getX());
             circle.setCenterY(event.getY());
