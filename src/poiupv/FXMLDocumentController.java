@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,7 +25,9 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
@@ -85,6 +88,8 @@ public class FXMLDocumentController implements Initializable {
     
     //For moving nodes
     private double startTransX, startTransY;
+    @FXML
+    private MenuItem selectProblem;
     
     
     @FXML
@@ -284,6 +289,34 @@ public class FXMLDocumentController implements Initializable {
         stage.setTitle("Question");
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
+    }
+
+    @FXML
+    private void handleOnActionPickProblem(ActionEvent event) throws IOException {
+        List<String> choices = new ArrayList<>();
+        for (int i = 1; i < 20; i++) choices.add(String.format("%d", i)); //Pongo 20 como numero arbitrario
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);   //porque no se cuantos problemas hay
+        dialog.setTitle("Choose problem");
+        dialog.setHeaderText("Which problem do you want to solve?");
+        dialog.setContentText("Choose a number");
+        //Hacemos que el dialog se vea bonito
+        DialogPane dp = dialog.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("LoginStyle.css").toExternalForm()); //Podemos crear un css propio para el alert
+        Optional<String> result = dialog.showAndWait();                                     //pero eso segun vayamos de tiempo
+        
+        if (result.isPresent()) {
+            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("FXMLQuestions.fxml"));
+            Pane root = (Pane) myLoader.load();
+        
+            FXMLQuestionsController controller = myLoader.<FXMLQuestionsController>getController();
+            Scene scene = new Scene (root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            controller.initRandom(Integer.parseInt(result.get()));
+            stage.setTitle("Question");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.show();
+        }
     }
 
 

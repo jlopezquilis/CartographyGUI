@@ -61,7 +61,11 @@ public class FXMLQuestionsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        try {nav = Navegacion.getSingletonNavegacion();} catch (Exception e) {}
+        try {nav = Navegacion.getSingletonNavegacion();} catch (Exception e) {};
+    }  
+    
+    public void initRandom(int i) {
+        indexOfProblem = i;
         if(indexOfProblem == -1) {  // Si el indice del problema es -1, significa que hemos escogido la opcion de problema aleatorio.
             // Cogemos la lista con todos los problemas y escogemos uno al azar.
             labelNumber.textProperty().setValue("Random Question");
@@ -93,11 +97,6 @@ public class FXMLQuestionsController implements Initializable {
             answer3.textProperty().setValue(ListAnswers.get(2).getText());
             answer4.textProperty().setValue(ListAnswers.get(3).getText());
         }
-        
-    }  
-    
-    public void initRandom(int i) {
-        indexOfProblem = i;
     }
 
     @FXML
@@ -107,6 +106,40 @@ public class FXMLQuestionsController implements Initializable {
 
     @FXML
     private void handleOnActionButtonNextQuest(ActionEvent event) {
+        //Aquí faltaría añadir el código para meter en la base de datos si la respuesta era correcta y eso
+        if(indexOfProblem == -1) {  // Si el indice del problema es -1, significa que hemos escogido la opcion de problema aleatorio.
+            // Cogemos la lista con todos los problemas y escogemos uno al azar.
+            labelNumber.textProperty().setValue("Random Question");
+            ListProblems = new ArrayList<>(nav.getProblems());
+            int index = new Random().nextInt(ListProblems.size());
+            Problem problem = ListProblems.get(index);
+            // Ponemos el enunciado del problema.
+            labelQuestion.textProperty().setValue(problem.getText());
+            
+            // Cogemos la lista de las respuestas y las desordenamos para que nunca salgan en el mismo orden.
+            ListAnswers = new ArrayList<>(problem.getAnswers());
+            Collections.shuffle(ListAnswers);
+            // Ponemos el texto en cada una de las respuestas.
+            answer1.textProperty().setValue(ListAnswers.get(0).getText());
+            answer2.textProperty().setValue(ListAnswers.get(1).getText());
+            answer3.textProperty().setValue(ListAnswers.get(2).getText());
+            answer4.textProperty().setValue(ListAnswers.get(3).getText());
+        } else {    // En este caso el indice del problema se saca de la pantalla de seleccionar problema y se lo pasaríamos.
+            // Escogemos el problema seleccionado y lo mostramos por pantalla con sus respectivas respuestas.
+            indexOfProblem++;
+            labelNumber.textProperty().setValue("Question " + indexOfProblem);
+            ListProblems = new ArrayList<>(nav.getProblems());
+            Problem problem = ListProblems.get(indexOfProblem);
+            labelQuestion.textProperty().setValue(problem.getText());
+            
+            ListAnswers = new ArrayList<>(problem.getAnswers());
+            Collections.shuffle(ListAnswers);
+            answer1.textProperty().setValue(ListAnswers.get(0).getText());
+            answer2.textProperty().setValue(ListAnswers.get(1).getText());
+            answer3.textProperty().setValue(ListAnswers.get(2).getText());
+            answer4.textProperty().setValue(ListAnswers.get(3).getText());
+        }
+        
     }
     
 }

@@ -33,7 +33,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Problems">
             <items>
-              <MenuItem mnemonicParsing="false" text="Select Problem" />
+              <MenuItem fx:id="selectProblem" mnemonicParsing="false" onAction="#handleOnActionPickProblem" text="Select Problem" />
                   <MenuItem mnemonicParsing="false" onAction="#handleOnActionPickRandom" text="Pick a random Problem" />
             </items>
           </Menu>
@@ -44,7 +44,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
+      <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" stylesheets="@LoginStyle.css" VBox.vgrow="NEVER">
          <children>
             <ToggleButton fx:id="markButton" mnemonicParsing="false">
                <graphic>
@@ -80,18 +80,18 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </HBox>
-      <SplitPane VBox.vgrow="ALWAYS">
+      <SplitPane stylesheets="@LoginStyle.css" VBox.vgrow="ALWAYS">
          <items>
-            <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#muestraPosicion" pannable="true" prefHeight="398.0" prefWidth="358.0" vbarPolicy="ALWAYS">
+            <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#muestraPosicion" pannable="true" prefHeight="398.0" prefWidth="358.0" stylesheets="@LoginStyle.css" vbarPolicy="ALWAYS">
                <content>
-                  <Pane onMousePressed="#toolPrint">
+                  <Pane onMousePressed="#toolPrint" stylesheets="@LoginStyle.css">
                      <children>
                         <ImageView pickOnBounds="true">
                            <image>
                               <Image url="@../resources/carta_nautica.jpg" />
                            </image>
                         </ImageView>
-                        <MenuButton fx:id="map_pin" mnemonicParsing="false" prefHeight="60.0" prefWidth="48.0" visible="false">
+                        <MenuButton fx:id="map_pin" mnemonicParsing="false" prefHeight="60.0" prefWidth="48.0" stylesheets="@LoginStyle.css" visible="false">
                            <items>
                               <MenuItem fx:id="pin_info" mnemonicParsing="false" text="Action 1" />
                            </items>
