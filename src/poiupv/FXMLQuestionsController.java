@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,6 +55,7 @@ public class FXMLQuestionsController implements Initializable {
     private int indexOfProblem = -1;
     private Navegacion nav;
     private ArrayList<Answer> ListAnswers;
+    private BooleanProperty checkedAnswers;
 
     /**
      * Initializes the controller class.
@@ -62,6 +64,8 @@ public class FXMLQuestionsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         try {nav = Navegacion.getSingletonNavegacion();} catch (Exception e) {};
+        //checkedAnswers.setValue(Boolean.FALSE);
+        //buttonNextQuest.disableProperty().bind(checkedAnswers);
     }  
     
     public void initRandom(int i) {
@@ -101,7 +105,7 @@ public class FXMLQuestionsController implements Initializable {
 
     @FXML
     private void handleOnActionButtonChechAnswer(ActionEvent event) {
-        
+        //checkedAnswers.setValue(Boolean.TRUE);
     }
 
     @FXML
