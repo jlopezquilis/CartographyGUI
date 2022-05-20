@@ -67,7 +67,14 @@
                      </image>
                   </ImageView>
                </graphic></ToggleButton>
-            <ToggleButton mnemonicParsing="false" text="Arc" toggleGroup="$tool" />
+            <ToggleButton fx:id="arcButton" mnemonicParsing="false" toggleGroup="$tool">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/circle1.png" />
+                     </image>
+                  </ImageView>
+               </graphic></ToggleButton>
             <ToggleButton mnemonicParsing="false" text="Text" toggleGroup="$tool" />
             <ColorPicker fx:id="colorPick" />
             <Slider fx:id="sliderThick" blockIncrement="1.0" max="20.0" />

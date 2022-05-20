@@ -5,6 +5,8 @@
  */
 package poiupv;
 
+//import java.awt.Color;
+import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -95,7 +97,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ToggleButton lineButton;
     
-    private Line linePainting;
+    private Line myLine;
+    private Circle myCircle;
+    private double startXArc;
+    
     @FXML
     private MenuItem selectProblem;
     
@@ -111,6 +116,8 @@ public class FXMLDocumentController implements Initializable {
     private Menu problemsMenu;
     @FXML
     private MenuItem logOutOption;
+    @FXML
+    private ToggleButton arcButton;
     
     
     @FXML
@@ -163,10 +170,10 @@ public class FXMLDocumentController implements Initializable {
         
         //If tool selected is line
         else if (lineButton.isSelected()) {
-            linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
-            zoomGroup.getChildren().add(linePainting);
+            myLine = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+            zoomGroup.getChildren().add(myLine);
             //For deleting the line (context menu)
-            linePainting.setOnContextMenuRequested(eventContext -> {
+            myLine.setOnContextMenuRequested(eventContext -> {
                 ContextMenu menuContext = new ContextMenu();
                 MenuItem deleteItem = new MenuItem("Delete");
                 menuContext.getItems().add(deleteItem);
@@ -176,10 +183,19 @@ public class FXMLDocumentController implements Initializable {
                     zoomGroup.getChildren().remove((Node)eventContext.getSource());
                     eventMenu.consume();
                 });
-                menuContext.show(linePainting, eventContext.getSceneX(), eventContext.getSceneY());
+                menuContext.show(myLine, eventContext.getSceneX(), eventContext.getSceneY());
                 eventContext.consume();
             });
 
+        }
+        else if (arcButton.isSelected()) {
+            myCircle = new Circle(1);
+            myCircle.setStroke(colorPick.getValue());
+            myCircle.setFill(Color.TRANSPARENT);
+            myCircle.setCenterX(event.getX());
+            myCircle. setCenterY(event.getY());
+            zoomGroup.getChildren().add(myCircle);
+            startXArc = event.getX();
         }
         
     }
@@ -187,8 +203,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleMouseDragged (MouseEvent event) {
         if (lineButton.isSelected()){
-            linePainting.setEndX(event.getX());
-            linePainting.setEndY(event.getY());
+            myLine.setEndX(event.getX());
+            myLine.setEndY(event.getY());
+            event.consume();
+        }
+        else if (arcButton.isSelected()) {
+            double radio = Math.abs(event.getX() - startXArc);
+            myCircle.setRadius(radio);
             event.consume();
         }
         
