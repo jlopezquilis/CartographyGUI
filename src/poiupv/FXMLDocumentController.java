@@ -15,6 +15,8 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,12 +26,16 @@ import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -90,6 +96,19 @@ public class FXMLDocumentController implements Initializable {
     private double startTransX, startTransY;
     @FXML
     private MenuItem selectProblem;
+    
+    //Para checkear si se ha iniciado sesion:
+    private static BooleanProperty isLoggedIn;
+    
+    
+    @FXML
+    private Menu accountMenu;
+    @FXML
+    private MenuItem selectRandomProblem;
+    @FXML
+    private Menu problemsMenu;
+    @FXML
+    private MenuItem logOutOption;
     
     
     @FXML
@@ -213,6 +232,12 @@ public class FXMLDocumentController implements Initializable {
         //zoomGroup.getChildren().add(circle);
         map_scrollpane.setContent(contentGroup);
 
+        //Para controlar si el usuario ha iniciado sesion
+        isLoggedIn = new SimpleBooleanProperty();
+        isLoggedIn.setValue(Boolean.FALSE);
+        
+        problemsMenu.visibleProperty().bind(isLoggedIn);
+        logOutOption.visibleProperty().bind(isLoggedIn);
     }
 
     @FXML
@@ -319,5 +344,22 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    public static void setLoggedIn() {
+        isLoggedIn.setValue(Boolean.TRUE);
+    }
 
+    @FXML
+    private void handleLogOut(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Log Out");
+        alert.setHeaderText("Caution!");
+        alert.setContentText("Are you sure you want to log out?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            isLoggedIn.setValue(Boolean.FALSE);
+        } else {
+            alert.close();
+        }
+        
+    }
 }

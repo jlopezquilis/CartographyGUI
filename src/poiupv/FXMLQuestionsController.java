@@ -11,7 +11,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.Set;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,7 +58,7 @@ public class FXMLQuestionsController implements Initializable {
     private int indexOfProblem = -1;
     private Navegacion nav;
     private ArrayList<Answer> ListAnswers;
-    private BooleanProperty checkedAnswers;
+    private BooleanProperty checkedAnswersProperty;
 
     /**
      * Initializes the controller class.
@@ -64,8 +67,11 @@ public class FXMLQuestionsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         try {nav = Navegacion.getSingletonNavegacion();} catch (Exception e) {};
-        //checkedAnswers.setValue(Boolean.FALSE);
-        //buttonNextQuest.disableProperty().bind(checkedAnswers);
+        
+        checkedAnswersProperty = new SimpleBooleanProperty();
+        
+        checkedAnswersProperty.setValue(Boolean.FALSE);
+        buttonNextQuest.disableProperty().bind(Bindings.not(checkedAnswersProperty));
     }  
     
     public void initRandom(int i) {
@@ -105,7 +111,8 @@ public class FXMLQuestionsController implements Initializable {
 
     @FXML
     private void handleOnActionButtonChechAnswer(ActionEvent event) {
-        //checkedAnswers.setValue(Boolean.TRUE);
+        checkedAnswersProperty.setValue(Boolean.TRUE);
+        
     }
 
     @FXML
@@ -143,7 +150,7 @@ public class FXMLQuestionsController implements Initializable {
             answer3.textProperty().setValue(ListAnswers.get(2).getText());
             answer4.textProperty().setValue(ListAnswers.get(3).getText());
         }
-        
+        checkedAnswersProperty.setValue(Boolean.FALSE); //Para que en la siguiente pregunta tb tengamos que checkear la respuesta
     }
     
 }

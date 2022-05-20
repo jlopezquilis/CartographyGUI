@@ -25,16 +25,17 @@
    <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="Account">
+          <Menu fx:id="accountMenu" mnemonicParsing="false" text="Account">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleOnActionLogIn" text="Log In" />
                   <MenuItem mnemonicParsing="false" onAction="#handleOnActionSignUp" text="Sign Up" />
+                  <MenuItem fx:id="logOutOption" mnemonicParsing="false" onAction="#handleLogOut" text="Log Out" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Problems">
+          <Menu fx:id="problemsMenu" mnemonicParsing="false" text="Problems">
             <items>
               <MenuItem fx:id="selectProblem" mnemonicParsing="false" onAction="#handleOnActionPickProblem" text="Select Problem" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleOnActionPickRandom" text="Pick a random Problem" />
+                  <MenuItem fx:id="selectRandomProblem" mnemonicParsing="false" onAction="#handleOnActionPickRandom" text="Pick a random Problem" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -86,7 +87,7 @@
                <content>
                   <Pane onMousePressed="#toolPrint" stylesheets="@LoginStyle.css">
                      <children>
-                        <ImageView pickOnBounds="true">
+                        <ImageView layoutX="24.0" layoutY="-14.0" pickOnBounds="true">
                            <image>
                               <Image url="@../resources/carta_nautica.jpg" />
                            </image>

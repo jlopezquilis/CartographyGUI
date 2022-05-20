@@ -81,7 +81,7 @@ public class FXMLLogInController implements Initializable {
             }
         });
         
-        textfieldPassword.focusedProperty().addListener((observable, oldVal, newVal) -> 
+        textfieldPassword.focusedProperty().addListener((observable, oldVal, newVal) -> //Tenemos que revisar esto pq no va del todo bien
         {
             String sPass =  textfieldPassword.textProperty().getValue();
             if(sPass.equals("")) {
@@ -122,6 +122,7 @@ public class FXMLLogInController implements Initializable {
 
     @FXML
     private void handleOnActionButtonLogIn(ActionEvent event) throws IOException{
+        FXMLDocumentController.setLoggedIn();
         String nickname = textfieldUsername.textProperty().getValue();
         String password = textfieldPassword.textProperty().getValue();
         user = nav.loginUser(nickname, password);
