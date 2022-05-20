@@ -24,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -31,6 +32,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -48,6 +50,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -92,8 +95,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ToggleButton lineButton;
     
-    //For moving nodes
-    private double startTransX, startTransY;
+    private Line linePainting;
     @FXML
     private MenuItem selectProblem;
     
@@ -144,7 +146,7 @@ public class FXMLDocumentController implements Initializable {
     
     
     @FXML
-    public void toolPrint(MouseEvent event) {     
+    private void handleMousePressed(MouseEvent event) {     
         //If tool selected is mark
         if (markButton.isSelected()) {
             //Create a point (small circunference)
@@ -161,23 +163,35 @@ public class FXMLDocumentController implements Initializable {
         
         //If tool selected is line
         else if (lineButton.isSelected()) {
-            
-        }
-        
-        //If no tool selected then apply the functionality to move nodes
-        else {
-            //Saving position for future moving the node
-            startTransX = event.getSceneX();
-            startTransY = event.getSceneY();
-            //baseX = protractor.getTranslateX();
-            
+            linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+            zoomGroup.getChildren().add(linePainting);
+            //For deleting the line (context menu)
+            linePainting.setOnContextMenuRequested(eventContext -> {
+                ContextMenu menuContext = new ContextMenu();
+                MenuItem deleteItem = new MenuItem("Delete");
+                menuContext.getItems().add(deleteItem);
+                //If the user selects the option, we delete the line
+                deleteItem.setOnAction( eventMenu ->{
+                    //we get the line form the original event, and delete it.
+                    zoomGroup.getChildren().remove((Node)eventContext.getSource());
+                    eventMenu.consume();
+                });
+                menuContext.show(linePainting, eventContext.getSceneX(), eventContext.getSceneY());
+                eventContext.consume();
+            });
+
         }
         
     }
     
-    private void handleMouseDragged(MouseEvent event) {
-        double despX = event.getSceneX();
-        double despY = event.getSceneY();
+    @FXML
+    private void handleMouseDragged (MouseEvent event) {
+        if (lineButton.isSelected()){
+            linePainting.setEndX(event.getX());
+            linePainting.setEndY(event.getY());
+            event.consume();
+        }
+        
         
     }
 
