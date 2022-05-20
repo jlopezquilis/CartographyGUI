@@ -44,6 +44,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -53,6 +54,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -118,6 +121,16 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem logOutOption;
     @FXML
     private ToggleButton arcButton;
+    @FXML
+    private ToggleButton textButton;
+    @FXML
+    private ToggleButton deleteButton;
+    @FXML
+    private ToggleGroup tool2;
+    @FXML
+    private ToggleButton clearButton;
+    @FXML
+    private ToggleGroup tool21;
     
     
     @FXML
@@ -157,7 +170,7 @@ public class FXMLDocumentController implements Initializable {
         //If tool selected is mark
         if (markButton.isSelected()) {
             //Create a point (small circunference)
-            circle = new Circle(5);
+            circle = new Circle(sliderThick.getValue());
             //Apply color and thickness to point (For developing in future)
             
             circle.setFill(colorPick.getValue());
@@ -171,6 +184,8 @@ public class FXMLDocumentController implements Initializable {
         //If tool selected is line
         else if (lineButton.isSelected()) {
             myLine = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+            myLine.setStrokeWidth(sliderThick.getValue());
+            myLine.setStroke(colorPick.getValue());
             zoomGroup.getChildren().add(myLine);
             //For deleting the line (context menu)
             myLine.setOnContextMenuRequested(eventContext -> {
@@ -191,13 +206,39 @@ public class FXMLDocumentController implements Initializable {
         else if (arcButton.isSelected()) {
             myCircle = new Circle(1);
             myCircle.setStroke(colorPick.getValue());
+            myCircle.setStrokeWidth(sliderThick.getValue());
             myCircle.setFill(Color.TRANSPARENT);
             myCircle.setCenterX(event.getX());
             myCircle. setCenterY(event.getY());
             zoomGroup.getChildren().add(myCircle);
             startXArc = event.getX();
         }
+        else if (textButton.isSelected()) {
+            TextField userText = new TextField();
+            zoomGroup.getChildren().add(userText);
+            userText.setLayoutX(event.getX());
+            userText.setLayoutY(event.getY());
+            userText.requestFocus();
+            
+            //OnAction
+            userText.setOnAction(eventT ->{
+                Text label = new Text(userText.getText());
+                label.setX(userText.getLayoutX());
+                label.setY(userText.getLayoutY());
+                label.setFill(colorPick.getValue());
+                //sliderThick.setValue(20);
+                label.setFont(Font.font("Gafatar", sliderThick.getValue()));
+                zoomGroup.getChildren().add(label);
+                zoomGroup.getChildren().remove(userText);
+                event.consume();
+            });
+        }
         
+    }
+    
+    @FXML
+    private void toolOnAction (ActionEvent event) {
+        sliderThick.setValue(20);
     }
     
     @FXML
@@ -212,9 +253,8 @@ public class FXMLDocumentController implements Initializable {
             myCircle.setRadius(radio);
             event.consume();
         }
-        
-        
     }
+    
 
     //Handler dado en el ejemplo. Podemos eliminarlo
     void listClicked(MouseEvent event) {

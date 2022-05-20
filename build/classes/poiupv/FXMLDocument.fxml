@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="580.0" prefWidth="621.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox prefHeight="580.0" prefWidth="778.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
       <MenuBar>
         <menus>
@@ -75,9 +75,41 @@
                      </image>
                   </ImageView>
                </graphic></ToggleButton>
-            <ToggleButton mnemonicParsing="false" text="Text" toggleGroup="$tool" />
+            <ToggleButton fx:id="textButton" mnemonicParsing="false" onAction="#toolOnAction" toggleGroup="$tool">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/text.png" />
+                     </image>
+                  </ImageView>
+               </graphic></ToggleButton>
+            <ToggleButton fx:id="deleteButton" mnemonicParsing="false">
+               <toggleGroup>
+                  <ToggleGroup fx:id="tool2" />
+               </toggleGroup>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/trash1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="clearButton" mnemonicParsing="false">
+               <toggleGroup>
+                  <ToggleGroup fx:id="tool21" />
+               </toggleGroup>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/brush1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <Region prefHeight="5.0" prefWidth="63.0" />
             <ColorPicker fx:id="colorPick" />
-            <Slider fx:id="sliderThick" blockIncrement="1.0" max="20.0" />
+            <Slider fx:id="sliderThick" blockIncrement="1.0" max="40.0" prefHeight="14.0" prefWidth="220.0" value="5.0" />
             <Region HBox.hgrow="ALWAYS" />
             <Label text="Zoom" />
             <Button mnemonicParsing="false" onAction="#zoomOut" text="-" />
