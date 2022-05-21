@@ -75,7 +75,7 @@
                      </image>
                   </ImageView>
                </graphic></ToggleButton>
-            <ToggleButton fx:id="textButton" mnemonicParsing="false" onAction="#toolOnAction" toggleGroup="$tool">
+            <ToggleButton fx:id="textButton" mnemonicParsing="false" toggleGroup="$tool">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -83,14 +83,23 @@
                      </image>
                   </ImageView>
                </graphic></ToggleButton>
-            <ToggleButton fx:id="deleteButton" mnemonicParsing="false">
+            <ToggleButton fx:id="protractorButton" mnemonicParsing="false" toggleGroup="$tool">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/protractor.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="crossButton" mnemonicParsing="false">
                <toggleGroup>
-                  <ToggleGroup fx:id="tool2" />
+                  <ToggleGroup fx:id="tool1" />
                </toggleGroup>
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/trash1.png" />
+                        <Image url="@../resources/plus.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -71,7 +71,7 @@ S17.642,20.762,13.558,20.762z";
 }
 
 /*------------------ button, toggle buttons ------------------ */
-
+.botonProtractor {}
 .contrast .button,
 .contrast .toggle-button {
     -fx-text-fill: -app-color-hi;
@@ -172,3 +172,5 @@ S17.642,20.762,13.558,20.762z";
 .contrast .split-pane > .split-pane-divider {
     -fx-background-color: -app-color-lo;
 }
+
+

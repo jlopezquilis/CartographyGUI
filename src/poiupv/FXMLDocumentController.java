@@ -101,9 +101,16 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ToggleButton lineButton;
     
+    private Text label;
+    
     private Line myLine;
     private Circle myCircle;
     private double startXArc;
+    //For moving the protractor
+    private ImageView protractor;
+    private double startTransX, startTransY;
+    private double baseX, baseY;
+    private int protractorOpen = 0;
     
     @FXML
     private MenuItem selectProblem;
@@ -125,10 +132,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ToggleButton textButton;
     @FXML
-    private ToggleButton deleteButton;
-    @FXML
-    private ToggleGroup tool2;
-    @FXML
     private ToggleButton clearButton;
     @FXML
     private ToggleGroup tool21;
@@ -136,6 +139,12 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem menuItemLogIn;
     @FXML
     private MenuItem menuItemSignUp;
+    @FXML
+    private ToggleButton protractorButton;
+    @FXML
+    private ToggleButton crossButton;
+    @FXML
+    private ToggleGroup tool1;
     
     
     @FXML
@@ -184,6 +193,21 @@ public class FXMLDocumentController implements Initializable {
             zoomGroup.getChildren().add(circle);
             circle.setCenterX(event.getX());
             circle.setCenterY(event.getY());
+            
+            //For deleting the point (context menu)
+            circle.setOnContextMenuRequested(eventContext -> {
+                ContextMenu menuContext = new ContextMenu();
+                MenuItem deleteItem = new MenuItem("Delete");
+                menuContext.getItems().add(deleteItem);
+                //If the user selects the option, we delete the line
+                deleteItem.setOnAction( eventMenu ->{
+                    //we get the line form the original event, and delete it.
+                    zoomGroup.getChildren().remove((Node)eventContext.getSource());
+                    eventMenu.consume();
+                });
+                menuContext.show(circle, eventContext.getSceneX(), eventContext.getSceneY());
+                eventContext.consume();
+            });
         }
         
         //If tool selected is line
@@ -217,6 +241,21 @@ public class FXMLDocumentController implements Initializable {
             myCircle. setCenterY(event.getY());
             zoomGroup.getChildren().add(myCircle);
             startXArc = event.getX();
+            
+            //For deleting the arc (context menu)
+            myCircle.setOnContextMenuRequested(eventContext -> {
+                ContextMenu menuContext = new ContextMenu();
+                MenuItem deleteItem = new MenuItem("Delete");
+                menuContext.getItems().add(deleteItem);
+                //If the user selects the option, we delete the line
+                deleteItem.setOnAction( eventMenu ->{
+                    //we get the line form the original event, and delete it.
+                    zoomGroup.getChildren().remove((Node)eventContext.getSource());
+                    eventMenu.consume();
+                });
+                menuContext.show(myCircle, eventContext.getSceneX(), eventContext.getSceneY());
+                eventContext.consume();
+            });
         }
         else if (textButton.isSelected()) {
             TextField userText = new TextField();
@@ -227,7 +266,7 @@ public class FXMLDocumentController implements Initializable {
             
             //OnAction
             userText.setOnAction(eventT ->{
-                Text label = new Text(userText.getText());
+                label = new Text(userText.getText());
                 label.setX(userText.getLayoutX());
                 label.setY(userText.getLayoutY());
                 label.setFill(colorPick.getValue());
@@ -237,6 +276,52 @@ public class FXMLDocumentController implements Initializable {
                 zoomGroup.getChildren().remove(userText);
                 event.consume();
             });
+            
+            //For deleting the label (context menu) NO FUNCIONA
+            label.setOnContextMenuRequested(eventContext -> {
+                ContextMenu menuContext = new ContextMenu();
+                MenuItem deleteItem = new MenuItem("Delete");
+                menuContext.getItems().add(deleteItem);
+                //If the user selects the option, we delete the line
+                deleteItem.setOnAction( eventMenu ->{
+                    //we get the line form the original event, and delete it.
+                    zoomGroup.getChildren().remove((Node)eventContext.getSource());
+                    eventMenu.consume();
+                });
+                menuContext.show(label, eventContext.getSceneX(), eventContext.getSceneY());
+                eventContext.consume();
+            });
+        }
+        else if (protractorButton.isSelected()) {
+            if (protractorOpen == 0){
+                protractor = new ImageView("resources/transportador.png");
+                protractor.setOpacity(0.65);
+                protractor.setX(event.getX());
+                protractor.setY(event.getY());
+                zoomGroup.getChildren().add(protractor);
+                protractorOpen = 1;
+            } 
+            startTransX = event.getSceneX();
+            startTransY = event.getSceneY();
+            baseX = protractor.getTranslateX();
+            baseY = protractor.getTranslateY();
+            protractor.getScene().setCursor(Cursor.CROSSHAIR); //change the cursor
+            event.consume();
+        }
+        else if (crossButton.isSelected()) {
+            //Let's make 4 lines for creating the axis
+            Line lineXP = new Line(170, event.getY(), event.getX(), event.getY());
+            lineXP.setStroke(Color.RED);
+            zoomGroup.getChildren().add(lineXP);
+            Line linePX = new Line(event.getX(), event.getY(), 8610, event.getY());
+            linePX.setStroke(Color.RED);
+            zoomGroup.getChildren().add(linePX);
+            Line lineYP = new Line(event.getX(), 280, event.getX(), event.getY());
+            lineYP.setStroke(Color.RED);
+            zoomGroup.getChildren().add(lineYP);
+            Line linePY = new Line(event.getX(), event.getY(), event.getX(), 5515);
+            linePY.setStroke(Color.RED);
+            zoomGroup.getChildren().add(linePY);
         }
         
     }
@@ -251,6 +336,13 @@ public class FXMLDocumentController implements Initializable {
         else if (arcButton.isSelected()) {
             double radio = Math.abs(event.getX() - startXArc);
             myCircle.setRadius(radio);
+            event.consume();
+        }
+        else if (protractorButton.isSelected()){
+            double despX = event.getSceneX() - startTransX;
+            double despY = event.getSceneY() - startTransY;
+            protractor.setTranslateX(baseX + despX);
+            protractor.setTranslateY(baseY + despY);
             event.consume();
         }
     }
@@ -454,7 +546,5 @@ public class FXMLDocumentController implements Initializable {
         
     }
 
-    @FXML
-    private void toolOnAction(ActionEvent event) {
-    }
+
 }
