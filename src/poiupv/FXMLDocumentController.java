@@ -237,11 +237,6 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
-    private void toolOnAction (ActionEvent event) {
-        sliderThick.setValue(20);
-    }
-    
-    @FXML
     private void handleMouseDragged (MouseEvent event) {
         if (lineButton.isSelected()){
             myLine.setEndX(event.getX());
