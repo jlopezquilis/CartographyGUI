@@ -27,8 +27,8 @@
         <menus>
           <Menu fx:id="accountMenu" mnemonicParsing="false" text="Account">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleOnActionLogIn" text="Log In" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleOnActionSignUp" text="Sign Up" />
+              <MenuItem fx:id="menuItemLogIn" mnemonicParsing="false" onAction="#handleOnActionLogIn" text="Log In" />
+                  <MenuItem fx:id="menuItemSignUp" mnemonicParsing="false" onAction="#handleOnActionSignUp" text="Sign Up" />
                   <MenuItem fx:id="logOutOption" mnemonicParsing="false" onAction="#handleLogOut" text="Log Out" />
             </items>
           </Menu>

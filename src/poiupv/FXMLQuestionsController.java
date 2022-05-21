@@ -5,6 +5,7 @@
  */
 package poiupv;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,11 +18,19 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Answer;
 import model.Navegacion;
 import model.Problem;
@@ -59,6 +68,8 @@ public class FXMLQuestionsController implements Initializable {
     private Navegacion nav;
     private ArrayList<Answer> ListAnswers;
     private BooleanProperty checkedAnswersProperty;
+    @FXML
+    private Button buttonCancel;
 
     /**
      * Initializes the controller class.
@@ -111,14 +122,22 @@ public class FXMLQuestionsController implements Initializable {
 
     @FXML
     private void handleOnActionButtonChechAnswer(ActionEvent event) {
-        checkedAnswersProperty.setValue(Boolean.TRUE);
+        if(indexOfProblem != ListProblems.size()-1) {checkedAnswersProperty.setValue(Boolean.TRUE);}
+        RadioButton [] res = {answer1, answer2, answer3, answer4};
+        for(int i = 0; i < 4; i++) {
+            if(ListAnswers.get(i).getValidity() == true) {
+                res[i].textFillProperty().setValue(Color.GREEN);
+            } else {
+                res[i].textFillProperty().setValue(Color.RED);
+            }
+        }
         
     }
 
     @FXML
-    private void handleOnActionButtonNextQuest(ActionEvent event) {
+    private void handleOnActionButtonNextQuest(ActionEvent event)  throws IOException {
         //Aquí faltaría añadir el código para meter en la base de datos si la respuesta era correcta y eso
-        if(indexOfProblem == -1) {  // Si el indice del problema es -1, significa que hemos escogido la opcion de problema aleatorio.
+        /*if(indexOfProblem == -1) {  // Si el indice del problema es -1, significa que hemos escogido la opcion de problema aleatorio.
             // Cogemos la lista con todos los problemas y escogemos uno al azar.
             labelNumber.textProperty().setValue("Random Question");
             ListProblems = new ArrayList<>(nav.getProblems());
@@ -150,7 +169,21 @@ public class FXMLQuestionsController implements Initializable {
             answer3.textProperty().setValue(ListAnswers.get(2).getText());
             answer4.textProperty().setValue(ListAnswers.get(3).getText());
         }
-        checkedAnswersProperty.setValue(Boolean.FALSE); //Para que en la siguiente pregunta tb tengamos que checkear la respuesta
+        checkedAnswersProperty.setValue(Boolean.FALSE); //Para que en la siguiente pregunta tb tengamos que checkear la respuesta */
+        FXMLLoader myLoader = new FXMLLoader(getClass().getResource("FXMLQuestions.fxml"));
+        Pane root = (Pane) myLoader.load();
+        Stage thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        FXMLQuestionsController controller = myLoader.<FXMLQuestionsController>getController();
+        Scene scene = new Scene (root);
+        thisStage.setScene(scene);
+        if(indexOfProblem == -1) {controller.initRandom(-1);} else {controller.initRandom(++indexOfProblem);}
+        thisStage.show();
+    }
+
+    @FXML
+    private void handleOnActionButtonCancel(ActionEvent event) {
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
     
 }

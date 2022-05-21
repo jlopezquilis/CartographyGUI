@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -131,6 +132,10 @@ public class FXMLDocumentController implements Initializable {
     private ToggleButton clearButton;
     @FXML
     private ToggleGroup tool21;
+    @FXML
+    private MenuItem menuItemLogIn;
+    @FXML
+    private MenuItem menuItemSignUp;
     
     
     @FXML
@@ -308,6 +313,8 @@ public class FXMLDocumentController implements Initializable {
         
         problemsMenu.visibleProperty().bind(isLoggedIn);
         logOutOption.visibleProperty().bind(isLoggedIn);
+        menuItemLogIn.visibleProperty().bind(Bindings.not(isLoggedIn));
+        menuItemSignUp.visibleProperty().bind(Bindings.not(isLoggedIn));
     }
 
     @FXML
@@ -388,7 +395,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleOnActionPickProblem(ActionEvent event) throws IOException {
-        List<String> choices = new ArrayList<>();
+        /*List<String> choices = new ArrayList<>();
         for (int i = 1; i < 20; i++) choices.add(String.format("%d", i)); //Pongo 20 como numero arbitrario
         ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);   //porque no se cuantos problemas hay
         dialog.setTitle("Choose problem");
@@ -411,11 +418,25 @@ public class FXMLDocumentController implements Initializable {
             stage.setTitle("Question");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
-        }
+        }*/
+        
+        FXMLLoader myLoader = new FXMLLoader(getClass().getResource("FXMLSelectQuestion.fxml"));
+        Pane root = (Pane) myLoader.load();
+        
+        FXMLSelectQuestionController controller = myLoader.<FXMLSelectQuestionController>getController();
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Select Question");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setResizable(false);
+        stage.show();
+        
     }
 
     public static void setLoggedIn() {
         isLoggedIn.setValue(Boolean.TRUE);
+        
     }
 
     @FXML
@@ -431,5 +452,9 @@ public class FXMLDocumentController implements Initializable {
             alert.close();
         }
         
+    }
+
+    @FXML
+    private void toolOnAction(ActionEvent event) {
     }
 }

@@ -65,6 +65,8 @@ public class FXMLLogInController implements Initializable {
         // TODO
         try {nav = Navegacion.getSingletonNavegacion();} catch (Exception e) {}
         
+        buttonLogIn.disableProperty().setValue(true);
+        
         textfieldUsername.focusedProperty().addListener((observable, oldVal, newVal) -> 
         {
             if(!newVal) {
