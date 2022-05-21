@@ -118,6 +118,7 @@ public class FXMLDocumentController implements Initializable {
     //Para checkear si se ha iniciado sesion:
     private static BooleanProperty isLoggedIn;
     
+    private Group contentGroup;
     
     @FXML
     private Menu accountMenu;
@@ -133,8 +134,6 @@ public class FXMLDocumentController implements Initializable {
     private ToggleButton textButton;
     @FXML
     private ToggleButton clearButton;
-    @FXML
-    private ToggleGroup tool21;
     @FXML
     private MenuItem menuItemLogIn;
     @FXML
@@ -347,6 +346,11 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
+    @FXML
+    void handleClear(ActionEvent event) {
+        zoomGroup.getChildren().clear();
+    }
+    
 
     //Handler dado en el ejemplo. Podemos eliminarlo
     void listClicked(MouseEvent event) {
@@ -392,11 +396,10 @@ public class FXMLDocumentController implements Initializable {
         //=========================================================================
         //Envuelva el contenido de scrollpane en un grupo para que 
         //ScrollPane vuelva a calcular las barras de desplazamiento tras el escalado
-        Group contentGroup = new Group();
+        contentGroup = new Group();
         zoomGroup = new Group();
         contentGroup.getChildren().add(zoomGroup);
         zoomGroup.getChildren().add(map_scrollpane.getContent());
-        //zoomGroup.getChildren().add(circle);
         map_scrollpane.setContent(contentGroup);
 
         //Para controlar si el usuario ha iniciado sesion

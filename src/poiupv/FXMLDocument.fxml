@@ -104,10 +104,7 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ToggleButton fx:id="clearButton" mnemonicParsing="false">
-               <toggleGroup>
-                  <ToggleGroup fx:id="tool21" />
-               </toggleGroup>
+            <ToggleButton fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear" toggleGroup="$tool">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
