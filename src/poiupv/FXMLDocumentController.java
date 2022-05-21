@@ -178,7 +178,6 @@ public class FXMLDocumentController implements Initializable {
     }
     
     
-    @FXML
     private void handleMousePressed(MouseEvent event) {     
         //If tool selected is mark
         if (markButton.isSelected()) {
@@ -304,7 +303,7 @@ public class FXMLDocumentController implements Initializable {
             startTransY = event.getSceneY();
             baseX = protractor.getTranslateX();
             baseY = protractor.getTranslateY();
-            protractor.getScene().setCursor(Cursor.CROSSHAIR); //change the cursor
+            //protractor.getScene().setCursor(Cursor.CROSSHAIR); //change the cursor
             event.consume();
         }
         else if (crossButton.isSelected()) {
@@ -325,7 +324,6 @@ public class FXMLDocumentController implements Initializable {
         
     }
     
-    @FXML
     private void handleMouseDragged (MouseEvent event) {
         if (lineButton.isSelected()){
             myLine.setEndX(event.getX());
@@ -401,6 +399,9 @@ public class FXMLDocumentController implements Initializable {
         contentGroup.getChildren().add(zoomGroup);
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
+        
+        zoomGroup.setOnMousePressed(this:: handleMousePressed);
+        zoomGroup.setOnMouseDragged(this:: handleMouseDragged);
 
         //Para controlar si el usuario ha iniciado sesion
         isLoggedIn = new SimpleBooleanProperty();
