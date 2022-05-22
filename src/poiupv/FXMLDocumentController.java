@@ -57,6 +57,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -147,8 +148,6 @@ public class FXMLDocumentController implements Initializable {
     private ToggleButton protractorButton;
     @FXML
     private ToggleButton crossButton;
-    @FXML
-    private ToggleGroup tool1;
     
     private static int hits = 0;
     private static int faults = 0;
@@ -190,7 +189,6 @@ public class FXMLDocumentController implements Initializable {
         map_scrollpane.setHvalue(scrollH);
         map_scrollpane.setVvalue(scrollV);
     }
-    
     
     private void handleMousePressed(MouseEvent event) {     
         //If tool selected is mark
@@ -360,7 +358,14 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     void handleClear(ActionEvent event) {
-        zoomGroup.getChildren().clear();
+        Object[] nodes = zoomGroup.getChildren().toArray();
+        
+        //Ver si los elementos pertenecen a la clase Shape, en ese caso borrarlos
+        for (int i = 0; i < nodes.length; i++) {
+            if (nodes[i] instanceof Shape) {
+                zoomGroup.getChildren().remove(nodes[i]);
+            }
+        }
     }
     
 
