@@ -56,7 +56,7 @@
       </VBox>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" stylesheets="@ExercisesStyle.css">
          <children>
-            <Button fx:id="buttonCancel" mnemonicParsing="false" onAction="#handleOnActionButtonCancel" prefWidth="116.0" text="Cancel" />
+            <Button fx:id="buttonCancel" mnemonicParsing="false" onAction="#handleOnActionButtonCancel" prefWidth="116.0" text="Exit" />
             <Button fx:id="buttonCheckAnswer" mnemonicParsing="false" onAction="#handleOnActionButtonChechAnswer" prefWidth="116.0" stylesheets="@ExercisesStyle.css" text="Check answer">
                <HBox.margin>
                   <Insets left="30.0" right="30.0" />

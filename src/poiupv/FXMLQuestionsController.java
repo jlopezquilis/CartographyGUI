@@ -68,6 +68,9 @@ public class FXMLQuestionsController implements Initializable {
     private Navegacion nav;
     private ArrayList<Answer> ListAnswers;
     private BooleanProperty checkedAnswersProperty;
+    private static int hits = 0;
+    private static int faults = 0;
+    private Stage myStage;
     @FXML
     private Button buttonCancel;
 
@@ -83,6 +86,7 @@ public class FXMLQuestionsController implements Initializable {
         
         checkedAnswersProperty.setValue(Boolean.FALSE);
         buttonNextQuest.disableProperty().bind(Bindings.not(checkedAnswersProperty));
+        
     }  
     
     public void initRandom(int i) {
@@ -127,10 +131,16 @@ public class FXMLQuestionsController implements Initializable {
         for(int i = 0; i < 4; i++) {
             if(ListAnswers.get(i).getValidity() == true) {
                 res[i].textFillProperty().setValue(Color.GREEN);
+                if(res[i].selectedProperty().getValue()) {
+                    hits += 1;
+                } else {
+                    faults += 1;
+                }
             } else {
                 res[i].textFillProperty().setValue(Color.RED);
             }
         }
+        
         
     }
 
@@ -175,6 +185,7 @@ public class FXMLQuestionsController implements Initializable {
         Stage thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         
         FXMLQuestionsController controller = myLoader.<FXMLQuestionsController>getController();
+        FXMLQuestionsController.initHitsAndFaults(hits, faults);
         Scene scene = new Scene (root);
         thisStage.setScene(scene);
         if(indexOfProblem == -1) {controller.initRandom(-1);} else {controller.initRandom(++indexOfProblem);}
@@ -183,7 +194,19 @@ public class FXMLQuestionsController implements Initializable {
 
     @FXML
     private void handleOnActionButtonCancel(ActionEvent event) {
+        
+        FXMLDocumentController.initStadistics(hits, faults);
+        
         ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+    
+    private static void initHitsAndFaults(int myHits, int myFaults) {
+        hits = myHits;
+        faults = myFaults;
+    }
+    
+    private void closeWindow(ActionEvent event) {
+        FXMLDocumentController.initStadistics(hits, faults);
     }
     
 }

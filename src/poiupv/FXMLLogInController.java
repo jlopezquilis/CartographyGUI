@@ -124,7 +124,6 @@ public class FXMLLogInController implements Initializable {
 
     @FXML
     private void handleOnActionButtonLogIn(ActionEvent event) throws IOException{
-        FXMLDocumentController.setLoggedIn();
         String nickname = textfieldUsername.textProperty().getValue();
         String password = textfieldPassword.textProperty().getValue();
         user = nav.loginUser(nickname, password);
@@ -132,6 +131,7 @@ public class FXMLLogInController implements Initializable {
             labelPassword.visibleProperty().setValue(true);
         } else {
             //cerramos el login, faltaría pasarle el usuario a la ventana principal.
+            FXMLDocumentController.setLoggedIn(user);
             ((Node) event.getSource()).getScene().getWindow().hide();
         }
     }

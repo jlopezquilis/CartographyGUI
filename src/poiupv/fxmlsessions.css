@@ -1,0 +1,22 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.button {
+    -fx-background-color: #268EB5;
+    -fx-text-fill: white;
+    -fx-background-radius: 50;
+}
+
+.back-ground {
+    -fx-background-color:  #131D20;
+}
+
+.label {
+    -fx-text-fill: white;    
+}
+
+.list-cell:selected {
+    -fx-background-color: skyblue;
+    -fx-text-fill: black;
+}

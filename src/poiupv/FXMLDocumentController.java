@@ -9,6 +9,8 @@ package poiupv;
 import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +62,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Navegacion;
+import model.Session;
+import model.User;
 import poiupv.Poi;
 
 /**
@@ -144,6 +149,13 @@ public class FXMLDocumentController implements Initializable {
     private ToggleButton crossButton;
     @FXML
     private ToggleGroup tool1;
+    
+    private static int hits = 0;
+    private static int faults = 0;
+    private Navegacion nav;
+    private static User user;
+    @FXML
+    private MenuItem menuItemSessions;
     
     
     @FXML
@@ -384,6 +396,7 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         initData();
+        try {nav = Navegacion.getSingletonNavegacion();} catch (Exception e) {};
         //==========================================================
         // inicializamos el slider y enlazamos con el zoom
         zoom_slider.setMin(0.5);
@@ -409,6 +422,7 @@ public class FXMLDocumentController implements Initializable {
         
         problemsMenu.visibleProperty().bind(isLoggedIn);
         logOutOption.visibleProperty().bind(isLoggedIn);
+        menuItemSessions.visibleProperty().bind(isLoggedIn);
         menuItemLogIn.visibleProperty().bind(Bindings.not(isLoggedIn));
         menuItemSignUp.visibleProperty().bind(Bindings.not(isLoggedIn));
     }
@@ -530,8 +544,9 @@ public class FXMLDocumentController implements Initializable {
         
     }
 
-    public static void setLoggedIn() {
+    public static void setLoggedIn(User myUser) {
         isLoggedIn.setValue(Boolean.TRUE);
+        user = myUser;
         
     }
 
@@ -548,7 +563,35 @@ public class FXMLDocumentController implements Initializable {
             alert.close();
         }
         
+        if(hits != 0 || faults != 0) {
+            LocalDateTime now = LocalDateTime.now();
+            Session session = new Session(now, hits, faults);
+            try {user.addSession(session);} catch(Exception e) {}
+            hits = 0;
+            faults = 0;
+        }
+        
+    }
+    
+    public static void initStadistics(int myHits, int myFaults) {
+        hits += myHits;
+        faults += myFaults;
     }
 
+    @FXML
+    private void handleOnActionSessions(ActionEvent event) throws IOException{
+        FXMLLoader myLoader = new FXMLLoader(getClass().getResource("FXMLSessions.fxml"));
+        Pane root = (Pane) myLoader.load();
+        
+        FXMLSessionsController controller = myLoader.<FXMLSessionsController>getController();
+        controller.initSessions(user);
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Sessions");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setResizable(false);
+        stage.show();
+    }
 
 }
