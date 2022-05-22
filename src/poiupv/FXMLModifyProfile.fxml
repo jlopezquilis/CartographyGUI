@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="700.0" styleClass="background" stylesheets="@ModifyProfileStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLModifyProfileController">
    <children>
       <HBox alignment="CENTER" minWidth="75.0" prefHeight="75.0" prefWidth="200.0" styleClass="title" stylesheets="@ModifyProfileStyle.css">
@@ -55,7 +54,7 @@
                               <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameTextfield" editable="false" minWidth="125.0" prefWidth="125.0" styleClass="texfield" stylesheets="@ModifyProfileStyle.css" />
+                        <TextField fx:id="usernameTextfield" editable="false" minWidth="150.0" prefWidth="150.0" styleClass="texfield" stylesheets="@ModifyProfileStyle.css" />
                      </children>
                      <HBox.margin>
                         <Insets />
@@ -70,12 +69,12 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Email" textFill="WHITE">
+                        <Label text="New email" textFill="WHITE">
                            <font>
                               <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="emailTextfield" minWidth="150.0" prefWidth="150.0" styleClass="texfield" />
+                        <TextField fx:id="emailTextfield" minWidth="175.0" prefWidth="175.0" styleClass="texfield" />
                      </children>
                   </VBox>
                </children>
@@ -87,12 +86,12 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Password" textFill="WHITE">
+                        <Label text="New password" textFill="WHITE">
                            <font>
                               <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="passwordTextfield" minWidth="125.0" prefWidth="125.0" styleClass="texfield" />
+                        <TextField fx:id="passwordTextfield" minWidth="150.0" prefWidth="150.0" styleClass="texfield" />
                      </children>
                   </VBox>
                </children>
@@ -104,12 +103,12 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Birthdate" textFill="WHITE">
+                        <Label text="New birthdate" textFill="WHITE">
                            <font>
                               <Font name="Georgia" size="17.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="birthdatePicker" minWidth="125.0" prefWidth="125.0" />
+                        <DatePicker fx:id="birthdatePicker" minWidth="150.0" prefWidth="150.0" />
                      </children>
                   </VBox>
                </children>

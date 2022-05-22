@@ -21,14 +21,15 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="580.0" prefWidth="778.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox prefHeight="580.0" prefWidth="778.0" stylesheets="@MapStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
-      <MenuBar>
+      <MenuBar stylesheets="@MapStyle.css">
         <menus>
           <Menu fx:id="accountMenu" mnemonicParsing="false" text="Account">
             <items>
               <MenuItem fx:id="menuItemLogIn" mnemonicParsing="false" onAction="#handleOnActionLogIn" text="Log In" />
                   <MenuItem fx:id="menuItemSignUp" mnemonicParsing="false" onAction="#handleOnActionSignUp" text="Sign Up" />
+                  <MenuItem fx:id="modifyMenu" mnemonicParsing="false" onAction="#handleModifyMenu" text="Modify Profile" />
                   <MenuItem fx:id="menuItemSessions" mnemonicParsing="false" onAction="#handleOnActionSessions" text="Sessions" />
                   <MenuItem fx:id="logOutOption" mnemonicParsing="false" onAction="#handleLogOut" text="Log Out" />
             </items>
@@ -46,7 +47,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" stylesheets="@LoginStyle.css" VBox.vgrow="NEVER">
+      <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" stylesheets="@MapStyle.css" VBox.vgrow="NEVER">
          <children>
             <ToggleButton fx:id="markButton" mnemonicParsing="false">
                <graphic>
@@ -127,9 +128,9 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </HBox>
-      <SplitPane stylesheets="@LoginStyle.css" VBox.vgrow="ALWAYS">
+      <SplitPane stylesheets="@MapStyle.css" VBox.vgrow="ALWAYS">
          <items>
-            <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#muestraPosicion" pannable="true" prefHeight="398.0" prefWidth="358.0" stylesheets="@LoginStyle.css" vbarPolicy="ALWAYS">
+            <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#muestraPosicion" pannable="true" prefHeight="398.0" prefWidth="358.0" styleClass="sliders" stylesheets="@MapStyle.css" vbarPolicy="ALWAYS">
                <content>
                   <Pane stylesheets="@LoginStyle.css">
                      <children>
@@ -153,7 +154,7 @@
             </ScrollPane>
          </items>
       </SplitPane>
-      <HBox alignment="CENTER_RIGHT">
+      <HBox alignment="CENTER_RIGHT" stylesheets="@MapStyle.css">
          <children>
             <Label fx:id="posicion" minHeight="-Infinity" minWidth="-Infinity" text="SceneX:     ScenY:     " wrapText="true" HBox.hgrow="ALWAYS" />
          </children>

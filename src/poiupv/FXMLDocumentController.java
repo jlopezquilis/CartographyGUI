@@ -68,9 +68,9 @@ import model.User;
 import poiupv.Poi;
 
 /**
- * @author Ivaniko
- * @author suprimo keloke
- * @author Juanito
+ * @author Iván Haro Limiñana
+ * @author Juan Francisco López Quilis
+ * @author Pablo Pérez Martínez
  */
 public class FXMLDocumentController implements Initializable {
     
@@ -156,6 +156,8 @@ public class FXMLDocumentController implements Initializable {
     private static User user;
     @FXML
     private MenuItem menuItemSessions;
+    @FXML
+    private MenuItem modifyMenu;
     
     
     @FXML
@@ -422,6 +424,7 @@ public class FXMLDocumentController implements Initializable {
         
         problemsMenu.visibleProperty().bind(isLoggedIn);
         logOutOption.visibleProperty().bind(isLoggedIn);
+        modifyMenu.visibleProperty().bind(isLoggedIn);
         menuItemSessions.visibleProperty().bind(isLoggedIn);
         menuItemLogIn.visibleProperty().bind(Bindings.not(isLoggedIn));
         menuItemSignUp.visibleProperty().bind(Bindings.not(isLoggedIn));
@@ -483,8 +486,8 @@ public class FXMLDocumentController implements Initializable {
     private void handleOnActionAboutUs(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About us");
-        alert.setHeaderText("Creators of this splendid project");
-        alert.setContentText("Iván Haro Limiñana\nJuan Francisco López Quilis\nPablo Pérez Martínez");
+        alert.setHeaderText("Creators of this project");
+        alert.setContentText("Iván Haro Limiñana\nJuan Francisco López Quilis\nPablo Pérez Martínez\n\nComputer Science Degree, UPV\nGroup 2E");
         alert.showAndWait();
     }
 
@@ -591,6 +594,21 @@ public class FXMLDocumentController implements Initializable {
         stage.setTitle("Sessions");
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setResizable(false);
+        stage.show();
+    }
+
+    @FXML
+    private void handleModifyMenu(ActionEvent event) throws IOException {
+        FXMLLoader myLoader = new FXMLLoader(getClass().getResource("FXMLModifyProfile.fxml"));
+        Pane root = (Pane) myLoader.load();
+        
+        FXMLModifyProfileController controller = myLoader.<FXMLModifyProfileController>getController();
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        controller.initUser(user);
+        stage.setTitle("Modify profile");
+        stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
     }
 
