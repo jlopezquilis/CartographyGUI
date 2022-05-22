@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,6 +53,12 @@ public class FXMLModifyProfileController implements Initializable {
     private boolean email;
     private boolean password;
     private boolean bBirthday;
+    @FXML
+    private Label emailLabel;
+    @FXML
+    private Label passwordLabel;
+    @FXML
+    private Label birthdayLabel;
 
     /**
      * Initializes the controller class.
@@ -60,6 +67,10 @@ public class FXMLModifyProfileController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         usernameTextfield.disableProperty().setValue(Boolean.TRUE);
+        acceptButton.disableProperty().setValue(Boolean.TRUE);
+        emailLabel.visibleProperty().setValue(Boolean.FALSE);
+        passwordLabel.visibleProperty().setValue(Boolean.FALSE);
+        birthdayLabel.visibleProperty().setValue(Boolean.FALSE);
         
         emailTextfield.focusedProperty().addListener((observable, oldVal, newVal) -> 
         {
@@ -67,10 +78,10 @@ public class FXMLModifyProfileController implements Initializable {
                 String sEmail = emailTextfield.textProperty().getValue();
                 if(!User.checkEmail(sEmail)) {
                     acceptButton.disableProperty().setValue(true);
-                    //emailLabel.visibleProperty().setValue(true);
+                    emailLabel.visibleProperty().setValue(true);
                     email = false;
                 } else {
-                    //emailLabel.visibleProperty().setValue(false);
+                    emailLabel.visibleProperty().setValue(false);
                     email = true;
                     if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
                 }
@@ -83,10 +94,10 @@ public class FXMLModifyProfileController implements Initializable {
                 String pass =  passwordTextfield.textProperty().getValue();
                 if(!User.checkPassword(pass)) {
                     acceptButton.disableProperty().setValue(true);
-                    //passwordLabel.visibleProperty().setValue(true);
+                    passwordLabel.visibleProperty().setValue(true);
                     password = false;
                 } else {
-                    //passwordLabel.visibleProperty().setValue(false);
+                    passwordLabel.visibleProperty().setValue(false);
                     password = true;
                     if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
                 }
@@ -100,10 +111,10 @@ public class FXMLModifyProfileController implements Initializable {
                 LocalDate today = LocalDate.now();
                 if (birthday.compareTo(today.minusYears(12)) > 0) {
                     acceptButton.disableProperty().setValue(true);
-                    //birthdayLabel.visibleProperty().setValue(true);
+                    birthdayLabel.visibleProperty().setValue(true);
                     bBirthday = false;
                 } else {
-                    //birthdayLabel.visibleProperty().setValue(false);
+                    birthdayLabel.visibleProperty().setValue(false);
                     bBirthday = true;
                     if(todoCorrecto()) {acceptButton.disableProperty().setValue(false);}
                 }

@@ -21,6 +21,10 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -55,6 +59,8 @@ public class FXMLLogInController implements Initializable {
     private boolean bPassword;
     @FXML
     private Label labelPassword;
+    @FXML
+    private BorderPane background;
 
 
     /**
@@ -138,5 +144,13 @@ public class FXMLLogInController implements Initializable {
     
     private boolean todoCorrecto() {
         return bUser && bPassword;
+    }
+
+
+    @FXML
+    private void passwordEnterClicked(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            background.requestFocus();
+        }
     }
 }
